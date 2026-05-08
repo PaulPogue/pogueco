@@ -324,13 +324,28 @@ body {
     max-width: 1440px;
   }
 }
-
+/* Background positioning */
 @media (min-width: 1280px) {
   .hero-bg {
     background-size: 120% auto;
     background-position: 58% 38%;
   }
 }
+
+@media (max-width: 767px) {
+  .hero-bg {
+    background-size: 225% auto !important;
+    background-position: 25% 30% !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-content {
+    height: 680px;
+    justify-content: space-between;
+  }
+}
+/*********************/
 
 /* Stack on mobile */
 @media (max-width: 768px) {
