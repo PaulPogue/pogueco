@@ -3,7 +3,7 @@ const Copyright = () => {
 
   return (
     <div className="text-center text-sm mt-6 opacity-40">
-      <p> &copy; {year} Sullivan & Curry, LLP. All Rights Reserved</p>
+      <p> &copy; {year} Pogue & Company CPAs PLLC. All Rights Reserved</p>
     </div>
   );
 };
