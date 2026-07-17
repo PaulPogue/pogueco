@@ -1,21 +1,19 @@
 ---
-const { class: className = '' } = Astro.props;
-import { Image } from 'astro:assets';
-import GraphicOnly from '../assets/logos/graphic-only.png';
-import CourthouseExterior from '../assets/images/CourthouseExterior.jpg';
-import HeroSignup from './buttons/HeroSignup.jsx';
-import LearnMore from './buttons/LearnMore.astro';
-import PayrollImage from '../assets/images/w2.png';
-import TaxImage from '../assets/images/tax.png';
+const { class: className = "" } = Astro.props;
+import { Image } from "astro:assets";
+import GraphicOnly from "../assets/logos/graphic-only.png";
+import CourthouseExterior from "../assets/images/CourthouseExterior.jpg";
+import HeroSignup from "./buttons/HeroSignup.jsx";
+import LearnMore from "./buttons/LearnMore.astro";
+import PayrollImage from "../assets/images/w2.png";
+import TaxImage from "../assets/images/tax.png";
 ---
 
 <section
   class="relative overflow-hidden md:min-h-[720px] lg:min-h-[820px] pb-8 md:pb-12"
-  <!--
-  Background
-  layers
-  --
 >
+  <!--Background layers-->
+
   <div class="absolute inset-0">
     <!-- Background image -->
     <div
