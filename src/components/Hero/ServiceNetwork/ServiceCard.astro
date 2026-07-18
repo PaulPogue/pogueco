@@ -1,0 +1,124 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  icon: "accounting" | "tax" | "payroll" | "advisory";
+}
+
+const { title, description, href, icon } = Astro.props;
+---
+
+<article
+  class="relative z-10 flex h-full w-full flex-col rounded-2xl
+         border border-slate-100 bg-white p-6
+         shadow-[0_14px_38px_rgba(15,23,42,0.08)]"
+>
+  <!-- Icon and heading -->
+  <div class="flex items-center gap-3">
+    <div
+      class="flex h-11 w-11 shrink-0 items-center justify-center
+             rounded-full bg-blue-50 text-[var(--firmBlue)]"
+    >
+      {
+        icon === "accounting" && (
+          <svg
+            viewBox="0 0 24 24"
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4 19V9" />
+            <path d="M10 19V5" />
+            <path d="M16 19v-7" />
+            <path d="M22 19V3" />
+            <path d="M2 19h22" />
+          </svg>
+        )
+      }
+
+      {
+        icon === "tax" && (
+          <svg
+            viewBox="0 0 24 24"
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M8 3h8l4 4v14H4V3h4" />
+            <path d="M14 3v5h5" />
+            <path d="M8 16l8-8" />
+            <circle cx="9" cy="9" r="1" />
+            <circle cx="15" cy="15" r="1" />
+          </svg>
+        )
+      }
+
+      {
+        icon === "payroll" && (
+          <svg
+            viewBox="0 0 24 24"
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M16 11h6" />
+            <path d="M19 8v6" />
+          </svg>
+        )
+      }
+
+      {
+        icon === "advisory" && (
+          <svg
+            viewBox="0 0 24 24"
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4 18l5-5 4 4 7-8" />
+            <path d="M14 9h6v6" />
+          </svg>
+        )
+      }
+    </div>
+
+    <h2 class="text-base font-semibold leading-6 tracking-tight text-slate-950">
+      {title}
+    </h2>
+  </div>
+
+  <!-- Full-width body -->
+  <p class="mt-4 whitespace-pre-line text-sm leading-6 text-slate-600">
+    {description}
+  </p>
+
+  <a
+    href={href}
+    class="mt-auto inline-flex items-center gap-2 pt-4 text-sm font-semibold
+         text-[var(--firmBlue)] transition-colors hover:text-blue-800
+         focus-visible:outline-2 focus-visible:outline-offset-2
+         focus-visible:outline-blue-700"
+  >
+    <span>Learn More</span>
+    <span aria-hidden="true">→</span>
+  </a>
+</article>

@@ -1,0 +1,30 @@
+---
+import CenterLogoMark from "../../../assets/images/CenterLogo.svg";
+---
+
+<div
+  class="relative flex h-32 w-32 items-center justify-center
+         rounded-full bg-white
+         shadow-[0_18px_40px_rgba(15,23,42,0.08)]"
+>
+  <!-- Outer ring -->
+  <div
+    class="pointer-events-none absolute -inset-2 rounded-full
+           border border-slate-200/70"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Inner ring -->
+  <div
+    class="pointer-events-none absolute inset-2 rounded-full
+           border border-slate-100"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Logo -->
+  <div class="relative z-10 text-slate-400">
+    <CenterLogoMark class="h-18 w-18" />
+  </div>
+</div>

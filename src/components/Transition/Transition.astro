@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets";
+import Courthouse from "../../assets/images/CourthouseExterior2.jpg";
+import "./transition.css";
+---
+
+<section class="transition-section">
+  <!-- Right-side image -->
+  <div class="transition-photo">
+    <Image
+      src={Courthouse}
+      alt="Muhlenberg County courthouse"
+      widths={[800, 1200, 1600]}
+      sizes="(max-width: 767px) 100vw, 58vw"
+    />
+  </div>
+
+  <!-- Left-side content -->
+  <div class="transition-inner">
+    <div class="transition-content">
+      <p class="transition-eyebrow">Formerly Sullivan &amp; Curry</p>
+
+      <div class="transition-rule"></div>
+
+      <h2 class="transition-heading">
+        Built on trusted relationships.
+        <span>Focused on what’s next.</span>
+      </h2>
+
+      <div class="transition-copy">
+        <p>
+          For more than sixty years, clients throughout western Kentucky trusted
+          Sullivan &amp; Curry for thoughtful guidance and personal
+          relationships.
+        </p>
+
+        <p>
+          Today, those same values continue as
+          <strong>Pogue &amp; Company CPAs.</strong>
+          While our name has changed, our commitment to exceptional service, trusted
+          advice, and long-term client relationships remains the same.
+        </p>
+      </div>
+
+      <div class="transition-stats">
+        <div class="transition-stat">
+          <strong>60+</strong>
+          <span>Years of service</span>
+        </div>
+
+        <div class="transition-stat">
+          <strong>Local</strong>
+          <span>Relationships</span>
+        </div>
+
+        <div class="transition-stat">
+          <strong>Modern</strong>
+          <span>Technology</span>
+        </div>
+
+        <div class="transition-stat">
+          <strong>Forward</strong>
+          <span>Guidance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

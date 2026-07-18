@@ -1,23 +1,25 @@
 ---
-import { Image } from 'astro:assets';
-import MainMenu from './MainMenu';
-import Logo from '../../assets/logos/logoWhite.png';
-import ClientPortalButton from '../buttons/ClientPortalButton.astro';
-import MobileDrawer from '../../components/nav/MobileDrawer';
+import { Image } from "astro:assets";
+import MainMenu from "./MainMenu";
+import Logo from "../../assets/logos/logoColor.png";
+import ClientPortalButton from "../buttons/ClientPortalButton.astro";
+import MobileDrawer from "../../components/nav/MobileDrawer";
 ---
 
 <!-- Full-width background wrapper -->
-<div class="w-full bg-[color:var(--firmDarkBlue)] z-50">
+<div class="w-full bg-white z-50">
   <div
     class="container-wide mx-auto flex items-center justify-between p-4 font-light text-xl"
   >
     <!-- Logo -->
     <a href="/" aria-label="Home" class="flex items-center">
-      <Image src={Logo} alt="Pogue & Company CPAs PLLC logo" height={90} />
+      <Image src={Logo} alt="Pogue & Company CPAs PLLC logo" height={120} } />
     </a>
 
     <!-- Desktop nav (hidden on mobile) -->
-    <div class="hidden md:flex items-center gap-6 text-white text-md">
+    <div
+      class="hidden md:flex items-center gap-6 text-[color:var(--firmDarkBlue)] text-md"
+    >
       <MainMenu client:load />
       <ClientPortalButton
         href="https://pogue.clientportal.com/#/login"
@@ -31,6 +33,3 @@ import MobileDrawer from '../../components/nav/MobileDrawer';
     </div>
   </div>
 </div>
-
-<!-- Divider -->
-<div class="w-full h-1 bg-gray-300"></div>
