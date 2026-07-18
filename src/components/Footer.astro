@@ -1,80 +1,50 @@
 ---
-import { Image } from 'astro:assets';
-import Copyright from './Copyright';
-import AICPALogo from '../assets/images/aicpa.png';
-import KYCPALogo from '../assets/images/kycpa-logo.svg';
-import { FaLocationDot } from 'react-icons/fa6';
-import { FaPhone } from 'react-icons/fa';
-import { FaFax } from 'react-icons/fa';
-import { FaEnvelope } from 'react-icons/fa';
+import Copyright from "./Copyright";
 ---
 
-<footer class="bg-[var(--firmDarkBlue)] text-gray-300 p-4 pb-10 z-100">
-  <div class="container mx-auto">
-    <div class="footer-grid mt-10">
-      <!-- Memberships -->
-      <div class="w-full max-w-3xl mx-auto text-center">
-        <h1 class="text-2xl font-bold text-white">Memberships</h1>
-        <div class="grid grid-cols-2 gap-8 mt-4 justify-items-center">
-          <div class="flex flex-col items-center">
-            <Image src={AICPALogo} alt="AICPA Logo" height="70" />
-            <p class="text-md font-medium mt-2">
-              American Institute of Certified Public Accountants
-            </p>
-          </div>
-          <div class="flex flex-col items-center">
-            <Image src={KYCPALogo} alt="KYCPA Logo" height="70" />
-            <p class="text-md font-medium mt-2">
-              Kentucky Society of Certified Public Accountants
-            </p>
-          </div>
-        </div>
-      </div>
+<footer class="bg-[var(--firmDarkBlue)] text-gray-300">
+  <div class="mx-auto max-w-6xl px-8 py-2">
+    <div>
+      <address class="mt-2 not-italic space-y-1 text-center text-md">
+        <p class="font-bold">Pogue &amp; Company CPAs PLLC</p>
 
-      <!-- Contact -->
-      <div class="w-full mx-auto flex justify-center items-start">
-        <div
-          class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-start text-left"
-        >
-          <h1 class="text-2xl font-bold col-start-2 mb-2 text-white">
-            Contact
-          </h1>
-          <FaPhone className="w-4 h-4 mt-1" />
-          <a href="tel:+2703389290">
-            <p class="text-md font-medium">270 338 9290</p>
-          </a>
-          <FaEnvelope className="w-4 h-4 mt-1" />
-          <a href="/contact">
-            <p class="text-md font-medium">Contact Us</p>
-          </a>
-        </div>
-      </div>
+        <p class="font-light">
+          PO Box 1
+          <span class="mx-2 text-white/30">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+          1254 US Highway 62 W
+          <span class="mx-2 text-white/30">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+          Greenville, KY 42345
+        </p>
 
-      <!-- Address -->
-      <div class="w-full mx-auto flex justify-center items-start">
-        <div
-          class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-start text-left"
-        >
-          <h1 class="text-2xl font-bold col-start-2 mb-2 text-white">
-            Address
-          </h1>
-          <FaLocationDot className="w-4 h-4 mt-1" />
-          <div>
-            <p class="text-md font-medium">Pogue & Company CPAs PLLC</p>
-            <p>PO Box 1</p>
-            <p>1254 US Hwy 62 W</p>
-            <p>Greenville, KY 42345</p>
-          </div>
-        </div>
-      </div>
+        <p class="font-light">
+          <a
+            href="mailto:info@pogue.cpa"
+            class="transition-colors hover:text-white"
+          >
+            info@pogue.cpa
+          </a><span class="mx-2 text-white/30">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+          <a href="tel:+12703389290" class="transition-colors hover:text-white">
+            270 338 9290
+          </a>
+        </p>
+
+        <p>
+          <a href="/contact" class="transition-colors hover:text-white">
+            Contact Us
+          </a>
+        </p>
+      </address>
     </div>
 
-    <!-- Legal Links -->
-    <div class="mt-10 border-t border-white/10 pt-6 text-center text-sm">
-      <a href="/privacy" class="text-gray-400 hover:text-white transition">
+    <div class="mt-2 border-t border-white/10 pt-2 text-center">
+      <a
+        href="/privacy"
+        class="text-sm text-gray-400 transition-colors hover:text-white"
+      >
         Privacy Policy
       </a>
     </div>
   </div>
+
   <Copyright />
 </footer>
