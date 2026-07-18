@@ -1,19 +1,21 @@
 ---
 import HeroCopy from "./HeroCopy.astro";
 import ServiceNetwork from "./ServiceNetwork/ServiceNetwork.astro";
+import "./hero.css";
 ---
 
-<section class="relative overflow-hidden bg-white">
+<section class="hero relative overflow-hidden bg-white">
   <div
-    class="mx-auto grid min-h-[700px] max-w-[1500px] items-center gap-10
-           px-8 py-16 lg:grid-cols-[46%_54%] lg:px-12 lg:py-20"
+    class="hero-inner mx-auto grid min-h-[700px] max-w-[1500px] items-center
+           gap-14 px-8 py-16
+           lg:grid-cols-[44%_56%] lg:px-12 lg:py-20"
   >
     <div class="flex justify-start">
       <HeroCopy />
     </div>
 
-    <div class="flex justify-center lg:justify-end">
-      <div class="w-full max-w-[820px] scale-[1.08] origin-center">
+    <div class="flex min-w-0 justify-center lg:justify-end">
+      <div class="hero-network w-full max-w-[820px]">
         <ServiceNetwork />
       </div>
     </div>

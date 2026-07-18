@@ -5,6 +5,7 @@
   min-height: 720px;
   overflow: hidden;
   isolation: isolate;
+  margin: 40px 0 5px 0;
 
   color: white;
   background:
@@ -43,12 +44,13 @@
   width: 57%;
   overflow: hidden;
 
-  clip-path: ellipse(76% 90% at 78% 50%);
+  clip-path: polygon(12% 0, 100% 0, 100% 100%, 12% 100%, 0 50%);
 }
 
 .transition-photo img {
   position: absolute;
   inset: 0;
+  z-index: 1;
 
   display: block;
   width: 100%;
@@ -63,8 +65,9 @@
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
 
-  background: rgba(13, 71, 161, 0.05);
+  /* background: rgba(13, 71, 161, 0.14); */
   pointer-events: none;
 }
 
@@ -139,6 +142,22 @@
   border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.transition-photo-credit {
+  position: absolute;
+  top: 1.5rem;
+  left: 12rem;
+  z-index: 1;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
 .transition-stat:first-child {
   padding-left: 0;
   border-left: 0;
@@ -163,12 +182,15 @@
 
 /* Large desktop */
 @media (min-width: 1440px) {
+  .transition-content {
+    width: 48%;
+  }
+
   .transition-photo {
-    right: -3%;
+    right: -10%;
     width: 56%;
 
-    /* Taller, flatter curve */
-    clip-path: ellipse(58% 96% at 68% 50%);
+    clip-path: polygon(11% 0, 100% 0, 100% 100%, 11% 100%, 0 50%);
   }
 
   .transition-photo img {
@@ -183,26 +205,29 @@
   }
 
   .transition-photo {
-    right: -6%;
-    width: 59%;
-    clip-path: ellipse(64% 94% at 72% 50%);
+    right: -10%;
+    width: 60%;
+
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 12% 100%, 0 50%);
   }
 
   .transition-photo img {
-    object-position: 15% 48%;
+    object-position: 7% 48%;
+    transform: scale(1);
   }
 }
 
 /* Smaller desktop */
 @media (max-width: 1279px) {
   .transition-content {
-    width: 50%;
+    width: 51%;
   }
 
   .transition-photo {
-    right: -10%;
-    width: 62%;
-    clip-path: ellipse(68% 92% at 75% 50%);
+    right: -12%;
+    width: 64%;
+
+    clip-path: polygon(13% 0, 100% 0, 100% 100%, 13% 100%, 0 50%);
   }
 
   .transition-heading {
@@ -214,7 +239,7 @@
   }
 
   .transition-photo img {
-    object-position: 19% 48%;
+    object-position: 10% 48%;
   }
 }
 
@@ -230,18 +255,19 @@
   }
 
   .transition-content {
-    width: 56%;
+    width: 58%;
     padding-block: 3.5rem;
   }
 
   .transition-photo {
-    right: -30%;
-    width: 76%;
-    clip-path: ellipse(72% 88% at 82% 50%);
+    right: -28%;
+    width: 78%;
+
+    clip-path: polygon(14% 0, 100% 0, 100% 100%, 14% 100%, 0 50%);
   }
 
   .transition-photo img {
-    object-position: 25% 48%;
+    object-position: 27% 48%;
   }
 
   .transition-heading {

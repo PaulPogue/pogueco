@@ -1,53 +1,49 @@
 ---
-import { FaUser } from 'react-icons/fa';
-
 interface Props {
-  href: string;
-  buttonClass?: string;
+  href?: string;
+  label?: string;
+  variant?: "filled" | "outline";
+  class?: string;
 }
 
-const { href, buttonClass = '' } = Astro.props;
+const {
+  href = "https://pogue.clientportal.com/#/login",
+  label = "Client Portal",
+  variant = "filled",
+  class: className = "",
+} = Astro.props;
+
+const baseClasses =
+  "inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 " +
+  "text-sm font-semibold uppercase tracking-wide transition-colors " +
+  "focus-visible:outline-2 focus-visible:outline-offset-2 " +
+  "focus-visible:outline-[var(--firmBlue)]";
+
+const variantClasses =
+  variant === "outline"
+    ? "border border-[var(--firmBlue)] bg-white text-[var(--firmBlue)] hover:bg-blue-50"
+    : "bg-[var(--firmBlue)] text-white hover:bg-[var(--firmDarkBlue)]";
 ---
 
 <a
-  href="https://pogue.clientportal.com/#/login"
-  class="block"
+  href={href}
+  class:list={[baseClasses, variantClasses, className]}
   target="_blank"
   rel="noopener noreferrer"
 >
-  <button
-    type="button"
-    class={`
-    flex
-    items-center
-    whitespace-nowrap
-    cursor-pointer
-    rounded-lg 
-    px-5 py-2 
-    font-normal
-    text-lg
-    transition-all duration-200 ease-out
-    hover:-translate-y-0.5
-    hover:shadow-lg
-    focus:outline-none
-    focus-visible:ring-2 focus-visible:ring-white/60
-    ${buttonClass}
-    `}
+  <svg
+    viewBox="0 0 24 24"
+    class="h-4 w-4"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
   >
-    <FaUser className="mr-2" />
-    CLIENT PORTAL
-  </button>
-</a>
+    <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+    <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+  </svg>
 
-<!-- <button
-    type="button"
-    class="flex items-center whitespace-nowrap
-      bg-gradient-to-b from-[var(--firmBlue)] to-[color-mix(in_srgb,var(--firmBlue)_85%,black)]
-      text-white
-      hover:from-[color-mix(in_srgb,var(--firmBlue)_95%,black)]
-      hover:to-[color-mix(in_srgb,var(--firmBlue)_75%,black)]
-      font-medium rounded-lg
-      text-md px-5 py-2
-      ml-8 me-2
-      transition"
-  > -->
+  <span>{label}</span>
+</a>
