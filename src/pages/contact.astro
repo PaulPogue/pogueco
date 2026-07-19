@@ -1,53 +1,70 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ScheduleButtonLarge from "../components/buttons/ScheduleButtonLarge.astro";
-import BroadStreet from "../assets/images/BroadStreet.png";
 import ContactForm from "../components/ContactForm";
-import CourthouseExterior from "../assets/images/CourthouseExterior.jpg";
+import "./contact.css";
 ---
 
 <Layout>
-  <!-- Contact Section -->
-  <section
-    class="relative overflow-hidden min-h-[560px] md:min-h-[720px] lg:min-h-[820px]"
-  >
-    <!-- Background layers (desktop only) -->
-    <div class="absolute inset-0 hidden md:block z-0">
-      <!-- Background image -->
-      <div
-        class="absolute inset-0 bg-no-repeat"
-        style={`background-image: url('${CourthouseExterior.src}');
-            background-size: 105% auto;
-            background-position: 75% 40%;`}
-      >
-      </div>
+  <main class="contact-page">
+    <div class="contact-layout">
+      <section class="contact-intro">
+        <p class="contact-eyebrow">Contact</p>
 
-      <!-- Brand color wash -->
-      <div class="absolute inset-0 bg-[var(--firmDarkBlue)]/60"></div>
+        <h1 class="contact-title">
+          Let's start a<br />
+          conversation.
+        </h1>
 
-      <!-- Gradient for legibility -->
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-transparent to-black/30"
-      >
-      </div>
-      <!-- Photo credit -->
-      <div
-        class="absolute bottom-4 left-6 text-[11px] tracking-widest uppercase
-           text-white/50 select-none pointer-events-none"
-      >
-        Muhlenberg County Courthouse • Greenville, KY
-      </div>
-    </div>
+        <p class="contact-lead">
+          Whether you're looking for a new accounting firm, have questions about
+          tax planning, or simply want to learn more about our services, we'd be
+          glad to hear from you.
+        </p>
 
-    <!-- Content -->
-    <div
-      class="relative z-10 bg-gradient-bright max-w-3xl rounded-3xl mx-auto px-4 py-8 my-16 sm:px-10"
-    >
-      <div class="max-w-3xl mx-auto flex justify-center">
-        <div class="w-full">
-          <ContactForm client:load />
+        <div class="contact-details">
+          <div class="contact-detail">
+            <h2>Office</h2>
+            <p>
+              Pogue &amp; Company CPAs PLLC<br />
+              Greenville, Kentucky
+            </p>
+          </div>
+
+          <div class="contact-detail">
+            <h2>Phone</h2>
+            <p>
+              <a href="tel:+12703389290">(270) 338-9290</a>
+            </p>
+          </div>
+
+          <div class="contact-detail">
+            <h2>Email</h2>
+            <p>
+              <a href="mailto:info@pogue.cpa">info@pogue.cpa</a>
+            </p>
+          </div>
         </div>
-      </div>
+
+        <div class="contact-client-note">
+          <p>
+            <strong>Existing client? </strong>
+            Please use the Client Portal to securely exchange documents.
+          </p>
+
+          <a
+            href="https://pogue.clientportal.com/#/login"
+            class="contact-portal-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Client Portal
+          </a>
+        </div>
+      </section>
+
+      <section class="contact-form-card">
+        <ContactForm client:load />
+      </section>
     </div>
-  </section>
+  </main>
 </Layout>

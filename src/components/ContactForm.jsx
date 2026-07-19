@@ -7,7 +7,7 @@ const ContactForm = () => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    formData.append("access_key", "f02bf9df-71e4-44fe-ac89-fb60f17e036f");
+    formData.append("access_key", "9aa12415-234d-490f-9061-3749e91474e2");
 
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
@@ -61,83 +61,51 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="space-y-6 w-full">
-      <h2
-        className="font-bold tracking-tight text-3xl sm:text-4xl text-center leading-tight
-   text-slate-900 md:text-white"
-      >
-        Send us a message
-        <br />
-        We'll be in touch
-      </h2>
-
-      <div>
+    <form onSubmit={onSubmit} className="contact-form">
+      <div className="contact-form-fields">
         <input
           type="text"
-          className="w-full p-3 border rounded bg-white text-black"
+          className="contact-field"
           placeholder="* Name"
           name="name"
+          autoComplete="name"
           required
         />
-      </div>
 
-      <div>
         <input
           type="email"
-          className="w-full p-3 border rounded bg-white text-black"
+          className="contact-field"
           placeholder="* Email"
           name="email"
+          autoComplete="email"
           required
         />
-      </div>
 
-      <div>
         <input
-          type="text"
-          className="w-full p-3 border rounded bg-white text-black"
+          type="tel"
+          className="contact-field"
           placeholder="Phone"
           name="phone"
+          autoComplete="tel"
         />
-      </div>
 
-      <div>
         <input
-          className="w-full p-3 border rounded bg-white text-black"
+          type="text"
+          className="contact-field"
           placeholder="Preferred Contact Method"
           name="contactmethod"
         />
-      </div>
 
-      <div>
         <textarea
           name="message"
-          className="w-full p-3 border rounded bg-white text-black"
+          className="contact-field"
           placeholder="* What would you like to talk about?"
-          rows="10"
-        ></textarea>
+          required
+        />
       </div>
 
-      <div className="text-center">
-        <button
-          type="submit"
-          className="flex
-      items-center
-      justify-center
-      mx-auto
-      whitespace-nowrap
-      cursor-pointer
-      rounded-lg 
-      px-5 py-2 
-      font-normal
-      text-lg
-      bg-[#ebf1ff] text-[var(--firmBlue)]
-      transition-all duration-200 ease-out
-      hover:-translate-y-0.5
-      hover:shadow-lg
-      focus:outline-none
-      focus-visible:ring-2 focus-visible:ring-white/60"
-        >
-          <FaPaperPlane className="mr-2 mt-1" />
+      <div className="contact-form-actions">
+        <button type="submit" className="contact-submit">
           Send
         </button>
       </div>

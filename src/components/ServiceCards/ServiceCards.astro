@@ -1,6 +1,7 @@
 ---
 import Icon from "../Icons/Icon.astro";
 import "./service-cards.css";
+import "../../styles/components/service-card.css";
 ---
 
 <section class="service-cards-section">
@@ -25,8 +26,9 @@ import "./service-cards.css";
           confidence in your numbers.
         </p>
 
-        <a href="/services/accounting">
-          Explore Accounting <span aria-hidden="true">→</span>
+        <a href="/services/accounting" class="service-card-link">
+          <span class="service-card-link-text">Explore Accounting</span>
+          <span class="service-card-link-arrow" aria-hidden="true">→</span>
         </a>
       </article>
 
@@ -44,8 +46,9 @@ import "./service-cards.css";
           businesses.
         </p>
 
-        <a href="/services/tax">
-          Explore Tax <span aria-hidden="true">→</span>
+        <a href="/services/tax" class="service-card-link">
+          <span class="service-card-link-text">Explore Tax</span>
+          <span class="service-card-link-arrow" aria-hidden="true">→</span>
         </a>
       </article>
 
@@ -63,8 +66,9 @@ import "./service-cards.css";
           decisions.
         </p>
 
-        <a href="/services/payroll">
-          Explore Payroll <span aria-hidden="true">→</span>
+        <a href="/services/payroll" class="service-card-link">
+          <span class="service-card-link-text">Explore Payroll</span>
+          <span class="service-card-link-arrow" aria-hidden="true">→</span>
         </a>
       </article>
 
@@ -82,8 +86,9 @@ import "./service-cards.css";
           decisions.
         </p>
 
-        <a href="/services/advisory">
-          Explore Advisory <span aria-hidden="true">→</span>
+        <a href="/services/advisory" class="service-card-link">
+          <span class="service-card-link-text">Explore Advisory</span>
+          <span class="service-card-link-arrow" aria-hidden="true">→</span>
         </a>
       </article>
     </div>

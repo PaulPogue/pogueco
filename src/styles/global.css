@@ -30,6 +30,11 @@
   --astro-dark-blue-base: #0b001f; /*A dark, subtle blue/purple base for linear*/
 }
 
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
 body {
   font-family: "Mona Sans", sans-serif;
   color: #1f2937; /* Tailwind gray-800 */
