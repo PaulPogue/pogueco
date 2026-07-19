@@ -1,0 +1,227 @@
+.service-page {
+  background: #fff;
+  color: var(--firmText);
+}
+
+.service-page-shell {
+  width: min(calc(100% - 3rem), 1160px);
+  margin-inline: auto;
+}
+
+.service-page-hero {
+  padding-block: clamp(5rem, 9vw, 8rem);
+  background:
+    radial-gradient(circle at 82% 32%, rgba(59, 130, 246, 0.12), transparent 28rem),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border-bottom: 1px solid rgba(13, 71, 161, 0.08);
+}
+
+.service-page-eyebrow,
+.service-page-kicker {
+  margin: 0 0 1rem;
+  color: var(--firmBlue);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.service-page-hero h1 {
+  max-width: 760px;
+  margin: 0;
+  color: var(--firmDarkerBlue);
+  font-size: clamp(3rem, 6vw, 5.25rem);
+  font-weight: 650;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.service-page-lead {
+  max-width: 700px;
+  margin: 1.75rem 0 0;
+  color: #52627a;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.75;
+}
+
+.service-page-intro,
+.service-page-offerings,
+.service-page-questions {
+  padding-block: clamp(4rem, 7vw, 6.5rem);
+}
+
+.service-page-offerings {
+  background: #f8fafc;
+  border-block: 1px solid #edf2f7;
+}
+
+.service-page-two-column {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(3rem, 8vw, 7rem);
+  align-items: start;
+}
+
+.service-page h2 {
+  margin: 0;
+  color: var(--firmDarkBlue);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.service-page-two-column > p,
+.service-page-cta p {
+  margin: 0;
+  color: #596579;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.service-page-section-heading {
+  max-width: 700px;
+  margin-bottom: 2.5rem;
+}
+
+.service-page-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.service-page-offering {
+  min-height: 210px;
+  padding: 1.75rem;
+  background: #fff;
+  border: 1px solid rgba(13, 71, 161, 0.1);
+  border-radius: 18px;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.05);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.service-page-offering:hover {
+  border-color: rgba(13, 71, 161, 0.22);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.service-page-offering h3 {
+  margin: 0;
+  color: var(--firmDarkBlue);
+  font-size: 1.2rem;
+  font-weight: 650;
+}
+
+.service-page-offering p {
+  margin: 0.75rem 0 0;
+  color: #596579;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.service-page-question-list {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.service-page-question {
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.service-page-question:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.service-page-question h3 {
+  margin: 0;
+  color: var(--firmDarkBlue);
+  font-size: 1.08rem;
+  font-weight: 650;
+}
+
+.service-page-question p {
+  margin: 0.6rem 0 0;
+  color: #596579;
+  line-height: 1.7;
+}
+
+.service-page-cta {
+  padding-block: clamp(3.5rem, 6vw, 5rem);
+  background: var(--firmDarkerBlue);
+}
+
+.service-page-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.service-page-cta .service-page-kicker {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.service-page-cta h2 {
+  color: #fff;
+}
+
+.service-page-cta p {
+  max-width: 680px;
+  margin-top: 0.85rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.service-page-cta a {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.4rem;
+  color: var(--firmDarkerBlue);
+  background: #fff;
+  border-radius: 0.5rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.service-page-cta a:hover {
+  background: #eaf1ff;
+  color: var(--firmBlue);
+}
+
+@media (max-width: 800px) {
+  .service-page-two-column,
+  .service-page-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-page-two-column {
+    gap: 2rem;
+  }
+
+  .service-page-cta-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .service-page-shell {
+    width: min(calc(100% - 2rem), 1160px);
+  }
+
+  .service-page-hero {
+    padding-block: 4rem;
+  }
+
+  .service-page-offering {
+    min-height: auto;
+  }
+
+  .service-page-cta a {
+    width: 100%;
+  }
+}

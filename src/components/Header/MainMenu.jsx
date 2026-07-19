@@ -4,6 +4,8 @@ import ServicesDropdown from "./dropdowns/ServicesDropdown";
 import ToolsDropdown from "./dropdowns/ToolsDropdown";
 import ResourcesDropdown from "./dropdowns/ResourcesDropdown";
 import WhoIServeDropdown from "./dropdowns/WhoIServeDropdown";
+import "./dropdowns/services-menu.css";
+import "./dropdowns/resources-dropdown.css";
 
 const MainMenu = () => {
   const [activeMenu, setActiveMenu] = useState("");
