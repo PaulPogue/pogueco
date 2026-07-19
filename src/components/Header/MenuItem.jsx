@@ -5,6 +5,7 @@ const MenuItem = ({
   label,
   href,
   hasDropdown,
+  dropdownClassName,
   isActive,
   onClick,
   children,
@@ -102,7 +103,7 @@ const MenuItem = ({
         <div
           id="dropdown-menu"
           ref={dropdownRef}
-          className="menu-dropdown"
+          className={`dropdown-menu ${dropdownClassName ?? ""}`}
           style={{
             maxHeight: isOpen
               ? `${dropdownRef.current?.scrollHeight}px`

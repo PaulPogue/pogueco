@@ -1,80 +1,101 @@
-import React from "react";
-// import "./resources-menu.css";
-
-const resources = [
-  {
-    title: "Withholding Calculator",
-    description: "Estimate federal income tax withholding.",
-    href: "https://www.irs.gov/individuals/tax-withholding-estimator",
-    logo: "/logos/IRS-Logo.svg",
-    logoAlt: "IRS",
-    logoClass: "resources-menu-logo resources-menu-logo-irs",
-  },
-  {
-    title: "Federal Tax Payment",
-    description: "Make a payment directly to the IRS.",
-    href: "https://www.irs.gov/payments",
-    logo: "/logos/IRS-Logo.svg",
-    logoAlt: "IRS",
-    logoClass: "resources-menu-logo resources-menu-logo-irs",
-  },
-  {
-    title: "Kentucky Tax Payment",
-    description: "Pay Kentucky individual or business taxes.",
-    href: "https://epayment.ky.gov/epay",
-    logo: "/logos/revenue-logo.svg",
-    logoAlt: "Kentucky Department of Revenue",
-    logoClass: "resources-menu-logo resources-menu-logo-kentucky",
-  },
-  {
-    title: "Federal Refund Status",
-    description: "Check the status of an IRS refund.",
-    href: "https://www.irs.gov/wheres-my-refund",
-    logo: "/logos/IRS-Logo.svg",
-    logoAlt: "IRS",
-    logoClass: "resources-menu-logo resources-menu-logo-irs",
-  },
-  {
-    title: "Kentucky Refund Status",
-    description: "Check the status of a Kentucky refund.",
-    href: "https://refund.ky.gov/",
-    logo: "/logos/revenue-logo.svg",
-    logoAlt: "Kentucky Department of Revenue",
-    logoClass: "resources-menu-logo resources-menu-logo-kentucky",
-  },
-];
-
-const ResourcesDropdown = () => {
+export default function ResourcesDropdown() {
   return (
-    <nav className="resources-menu" aria-label="Resources">
-      {resources.map((resource) => (
-        <a
-          key={resource.title}
-          href={resource.href}
-          className="resources-menu-item"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="resources-menu-icon">
-            <img
-              src={resource.logo}
-              alt=""
-              aria-hidden="true"
-              className={resource.logoClass}
-            />
-          </span>
+    <div className="resources-menu resources-menu--columns">
+      <section className="resources-menu-column">
+        <div className="resources-menu-heading">
+          <div className="resources-menu-column-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <rect x="5" y="3" width="14" height="18" rx="2" />
+              <path d="M8 7h8" />
+              <path d="M8 11h2" />
+              <path d="M14 11h2" />
+              <path d="M8 15h2" />
+              <path d="M14 15h2" />
+            </svg>
+          </div>
 
-          <span className="resources-menu-content">
-            <span className="resources-menu-title">{resource.title}</span>
+          <h3 className="resources-menu-column-title">Calculators</h3>
+        </div>
 
-            <span className="resources-menu-description">
-              {resource.description}
-            </span>
-          </span>
-        </a>
-      ))}
-    </nav>
+        <div className="resources-menu-link-list">
+          <a
+            href="https://www.irs.gov/individuals/tax-withholding-estimator"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="resources-menu-link"
+          >
+            IRS Withholding Calculator
+          </a>
+        </div>
+      </section>
+
+      <section className="resources-menu-column">
+        <div className="resources-menu-heading">
+          <div className="resources-menu-column-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="6" width="18" height="12" rx="2" />
+              <path d="M3 10h18" />
+              <path d="M7 15h3" />
+            </svg>
+          </div>
+
+          <h3 className="resources-menu-column-title">Make a Payment</h3>
+        </div>
+
+        <div className="resources-menu-link-list">
+          <a
+            href="FEDERAL-PAYMENT-URL"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="resources-menu-link"
+          >
+            Federal Tax Payment
+          </a>
+
+          <a
+            href="KENTUCKY-PAYMENT-URL"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="resources-menu-link"
+          >
+            Kentucky Tax Payment
+          </a>
+        </div>
+      </section>
+
+      <section className="resources-menu-column">
+        <div className="resources-menu-heading">
+          <div className="resources-menu-column-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="6" />
+              <path d="m16 16 4 4" />
+              <path d="m8.5 11 1.7 1.7 3.3-3.4" />
+            </svg>
+          </div>
+
+          <h3 className="resources-menu-column-title">Where’s My Refund?</h3>
+        </div>
+
+        <div className="resources-menu-link-list">
+          <a
+            href="FEDERAL-REFUND-URL"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="resources-menu-link"
+          >
+            Federal Refund Status
+          </a>
+
+          <a
+            href="KENTUCKY-REFUND-URL"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="resources-menu-link"
+          >
+            Kentucky Refund Status
+          </a>
+        </div>
+      </section>
+    </div>
   );
-};
-
-export default ResourcesDropdown;
+}

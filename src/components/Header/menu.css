@@ -9,6 +9,12 @@
   display: inline-block;
 }
 
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  z-index: 100;
+}
+
 .menu-item-trigger {
   display: inline-flex;
   align-items: center;

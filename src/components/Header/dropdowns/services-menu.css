@@ -1,3 +1,9 @@
+.services-dropdown {
+  left: 50%;
+  z-index: 50;
+  transform: translateX(-50%);
+}
+
 .services-menu {
   display: grid;
   gap: 0.2rem;

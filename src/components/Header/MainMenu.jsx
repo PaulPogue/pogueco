@@ -38,6 +38,7 @@ const MainMenu = () => {
         <MenuItem
           label="Services"
           hasDropdown={true}
+          dropdownClassName={"services-dropdown"}
           isActive={activeMenu === "Services"}
           onClick={(isOpen) => toggleMenu("Services", isOpen)}
         >
@@ -65,6 +66,7 @@ const MainMenu = () => {
         <MenuItem
           label="Resources"
           hasDropdown={true}
+          dropdownClassName={"resources-dropdown"}
           isActive={activeMenu === "Resources"}
           onClick={(isOpen) => toggleMenu("Resources", isOpen)}
         >
