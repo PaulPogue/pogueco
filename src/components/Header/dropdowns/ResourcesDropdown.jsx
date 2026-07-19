@@ -5,6 +5,25 @@ export default function ResourcesDropdown() {
         <div className="resources-menu-heading">
           <div className="resources-menu-column-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24">
+              <path d="M3 5.5C3 4.67 3.67 4 4.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H4.5A1.5 1.5 0 0 0 3 19.5V5.5Z" />
+              <path d="M21 5.5C21 4.67 20.33 4 19.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h5.5A1.5 1.5 0 0 1 21 19.5V5.5Z" />
+            </svg>
+          </div>
+
+          <h3 className="resources-menu-column-title">Guides</h3>
+        </div>
+
+        <div className="resources-menu-link-list">
+          <a href="/obbba" className="resources-menu-link">
+            OBBBA Information
+          </a>
+        </div>
+      </section>
+
+      <section className="resources-menu-column">
+        <div className="resources-menu-heading">
+          <div className="resources-menu-column-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
               <rect x="5" y="3" width="14" height="18" rx="2" />
               <path d="M8 7h8" />
               <path d="M8 11h2" />
@@ -44,7 +63,7 @@ export default function ResourcesDropdown() {
 
         <div className="resources-menu-link-list">
           <a
-            href="FEDERAL-PAYMENT-URL"
+            href="https://www.irs.gov/payments"
             target="_blank"
             rel="noopener noreferrer"
             className="resources-menu-link"
@@ -53,7 +72,7 @@ export default function ResourcesDropdown() {
           </a>
 
           <a
-            href="KENTUCKY-PAYMENT-URL"
+            href="https://epayment.ky.gov/epay"
             target="_blank"
             rel="noopener noreferrer"
             className="resources-menu-link"
@@ -78,7 +97,7 @@ export default function ResourcesDropdown() {
 
         <div className="resources-menu-link-list">
           <a
-            href="FEDERAL-REFUND-URL"
+            href="https://www.irs.gov/refunds"
             target="_blank"
             rel="noopener noreferrer"
             className="resources-menu-link"
@@ -87,7 +106,7 @@ export default function ResourcesDropdown() {
           </a>
 
           <a
-            href="KENTUCKY-REFUND-URL"
+            href="https://refund.ky.gov/"
             target="_blank"
             rel="noopener noreferrer"
             className="resources-menu-link"

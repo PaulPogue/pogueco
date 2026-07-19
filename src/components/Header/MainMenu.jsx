@@ -33,8 +33,6 @@ const MainMenu = () => {
           <ServicesDropdown />
         </MenuItem> */}
 
-        <MenuItem label="OBBBA" hasDropdown={false} href="/obbba"></MenuItem>
-
         <MenuItem
           label="Services"
           hasDropdown={true}
