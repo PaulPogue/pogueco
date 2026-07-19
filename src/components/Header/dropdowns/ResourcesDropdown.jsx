@@ -1,4 +1,5 @@
 import React from "react";
+import "./resources-menu.css";
 
 const LogoSlot = ({ children }) => (
   <div className="h-10 flex items-end pb-1 justify-center">{children}</div>

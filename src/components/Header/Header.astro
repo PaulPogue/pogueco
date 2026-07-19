@@ -5,32 +5,26 @@ import Logo from "../../assets/logos/logoColor.png";
 import ClientPortalButton from "../buttons/ClientPortalButton.astro";
 import MobileDrawer from "../../components/nav/MobileDrawer";
 import "./header.css";
+import "./menu.css";
 ---
 
-<!-- Full-width background wrapper -->
-<div class="w-full bg-white z-50">
-  <div
-    class="container-wide mx-auto flex items-center justify-between p-4 font-light text-xl"
-  >
-    <!-- Logo -->
-    <a href="/" aria-label="Home" class="flex items-center">
-      <Image src={Logo} alt="Pogue & Company CPAs PLLC logo" height={110} } />
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" aria-label="Home" class="site-header-logo">
+      <Image src={Logo} alt="Pogue & Company CPAs PLLC logo" height={110} />
     </a>
 
-    <!-- Desktop nav (hidden on mobile) -->
-    <div
-      class="hidden md:flex items-center gap-6 text-[color:var(--firmDarkBlue)] text-md"
-    >
+    <div class="site-header-desktop">
       <MainMenu client:load />
+
       <ClientPortalButton
         href="https://pogue.clientportal.com/#/login"
-        buttonClass="bg-[#ebf1ff] text-[var(--firmBlue)]"
+        buttonClass="site-header-portal"
       />
     </div>
 
-    <!-- Mobile hamburger (hidden on desktop) -->
-    <div class="flex md:hidden">
+    <div class="site-header-mobile">
       <MobileDrawer client:load />
     </div>
   </div>
-</div>
+</header>

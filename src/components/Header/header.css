@@ -1,0 +1,48 @@
+.site-header {
+  position: relative;
+  z-index: 50;
+  width: 100%;
+  background: white;
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: min(calc(100% - 3rem), 1500px);
+  margin-inline: auto;
+  padding-block: 1rem;
+}
+
+.site-header-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.site-header-logo img {
+  width: auto;
+  height: 100px;
+}
+
+.site-header-desktop {
+  display: none;
+  align-items: center;
+  gap: 2.25rem;
+  color: var(--firmDarkBlue);
+}
+
+.site-header-mobile {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .site-header-desktop {
+    display: flex;
+  }
+
+  .site-header-mobile {
+    display: none;
+  }
+}

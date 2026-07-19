@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import { FiChevronDown } from "react-icons/fi";
 
 const MenuItem = ({
   label,
@@ -73,43 +73,36 @@ const MenuItem = ({
   return (
     <li
       ref={containerRef}
-      className="relative inline-block"
+      className="menu-item"
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
     >
-      <div className="inline-block">
+      <div className="menu-item-trigger-wrap">
         <a
           href={hasDropdown ? "#" : href}
           onClick={handleToggle}
-          className="flex items-center space-x-1 hover:opacity-70 transition-opacity cursor-pointer"
+          className="menu-item-trigger"
           aria-expanded={hasDropdown ? isOpen : undefined}
           aria-controls={hasDropdown ? "dropdown-menu" : undefined}
         >
           <span>{label}</span>
-          <span className="w-4">
-            {hasDropdown && (
-              <FaChevronDown
-                className={`transition-transform duration-300 ease-in-out ${
-                  isOpen
-                    ? "translate-y-0.5 scale-85"
-                    : "translate-y-0 scale-100"
-                }`}
-              />
-            )}
-          </span>
+
+          {hasDropdown && (
+            <FiChevronDown
+              className={`menu-item-chevron ${isOpen ? "is-open" : ""}`}
+            />
+          )}
         </a>
       </div>
 
       {/* Bridging element to extend the hover area */}
-      {hasDropdown && isOpen && (
-        <div className="absolute left-1/2 -translate-x-1/2 top-full h-6 w-full bg-transparent" />
-      )}
+      {hasDropdown && isOpen && <div className="menu-hover-bridge" />}
 
       {hasDropdown && (
         <div
           id="dropdown-menu"
           ref={dropdownRef}
-          className="absolute left-1/2 -translate-x-1/2 top-full mt-6 w-max z-100"
+          className="menu-dropdown"
           style={{
             maxHeight: isOpen
               ? `${dropdownRef.current?.scrollHeight}px`
@@ -119,10 +112,7 @@ const MenuItem = ({
             transition: "all 0.3s ease-in-out",
           }}
         >
-          <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rotate-45 border-l border-t border-gray-300"></div>
-          <div className="relative bg-white border rounded shadow-lg overflow-hidden">
-            {children}
-          </div>
+          <div className="menu-dropdown-panel">{children}</div>
         </div>
       )}
     </li>

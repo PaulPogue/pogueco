@@ -1,14 +1,12 @@
 /* src/styles/global.css */
 
-/* 1. External Font Imports (always at the very top) */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Hubot+Sans:ital,wght@0,200..900;1,200..900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 
-/* 2. Tailwind Core Import (Crucial for Tailwind v4 processing) */
 @import "tailwindcss";
 
-/* 3. YOUR CSS CUSTOM PROPERTIES (VARIABLES) - MUST BE HERE OR EARLIER */
+/* Define color scheme */
 :root {
   --firmDarkerBlue: #01094a;
   --firmDarkBlue: #010e71;
@@ -32,14 +30,6 @@
   --astro-dark-blue-base: #0b001f; /*A dark, subtle blue/purple base for linear*/
 }
 
-/* 4. Tailwind Directives (implicitly handled by @import "tailwindcss" in v4, but good to know) */
-/* If you ever had problems with basic Tailwind not working, you might explicitly add: */
-/* @tailwind base; */
-/* @tailwind components; */
-/* @tailwind utilities; */
-/* But for v4, @import "tailwindcss" often bundles this. For now, assume it's bundled. */
-
-/* 5. Your custom CSS that might use @apply or just regular CSS */
 body {
   font-family: "Mona Sans", sans-serif;
   color: #1f2937; /* Tailwind gray-800 */

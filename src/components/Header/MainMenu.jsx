@@ -19,7 +19,7 @@ const MainMenu = () => {
 
   return (
     <nav className="main-menu relative">
-      <ul className="flex space-x-14">
+      <ul className="flex items-center gap-10">
         {/* <MenuItem label="Home" href="/" hasDropdown={false} /> */}
 
         {/* <MenuItem
