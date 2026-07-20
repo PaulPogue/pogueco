@@ -7,15 +7,19 @@ import "./hero.css";
 <section class="hero relative overflow-hidden bg-white">
   <div
     class="hero-inner mx-auto grid min-h-[700px] max-w-[1500px] items-center
-           gap-14 px-8 py-16 -translate-x-10
+           gap-14 px-8 py-16 lg:-translate-x-10
            lg:grid-cols-[44%_56%] lg:px-12 lg:py-20"
   >
-    <div class="flex justify-start">
+    <!-- <div class="flex justify-start">
+      <HeroCopy />
+    </div> -->
+
+    <div class="mx-auto w-full text-center lg:mx-0 lg:text-left">
       <HeroCopy />
     </div>
 
     <div class="flex min-w-0 justify-center lg:justify-end">
-      <div class="hero-network w-full max-w-[820px]">
+      <div class="hero-network w-full max-w-[820px] hidden lg:block">
         <ServiceNetwork />
       </div>
     </div>

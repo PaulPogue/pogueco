@@ -1,128 +1,197 @@
-import React, { useState } from "react";
-import { FaUser, FaBars, FaTimes } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 
 const MobileDrawer = () => {
   const [open, setOpen] = useState(false);
 
+  const closeDrawer = () => setOpen(false);
+
+  // Prevent the page behind the drawer from scrolling.
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <>
       <button
+        type="button"
         onClick={() => setOpen(true)}
         aria-label="Open menu"
-        className="text-white p-2"
+        aria-expanded={open}
+        className="grid h-11 w-11 place-items-center rounded-md
+                   text-[var(--firmBlue)] transition
+                   hover:bg-blue-50"
       >
-        <FaBars size={28} />
+        <FaBars size={24} />
       </button>
 
       {open && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40"
-          onClick={() => setOpen(false)}
+        <button
+          type="button"
+          aria-label="Close menu"
+          className="fixed inset-0 z-40 cursor-default bg-black/40"
+          onClick={closeDrawer}
         />
       )}
 
-      <div
-        className={`fixed top-0 right-0 h-full w-72 bg-[#010e71] z-50 flex flex-col transition-transform duration-300 ease-in-out ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
+      <aside
+        aria-label="Mobile navigation"
+        className={`fixed right-0 top-0 z-50 flex h-full w-[min(21rem,88vw)]
+                    flex-col overflow-y-auto bg-[#010e71] shadow-2xl
+                    transition-transform duration-300 ease-in-out
+                    ${open ? "translate-x-0" : "translate-x-full"}`}
       >
-        <div className="flex justify-end p-6">
+        <div className="flex items-center justify-between border-b border-white/15 px-6 py-5">
+          <span className="text-sm font-semibold uppercase tracking-[0.16em] text-white/75">
+            Menu
+          </span>
+
           <button
-            onClick={() => setOpen(false)}
+            type="button"
+            onClick={closeDrawer}
             aria-label="Close menu"
-            className="text-white"
+            className="grid h-10 w-10 place-items-center rounded-md
+                       text-white transition hover:bg-white/10"
           >
-            <FaTimes size={24} />
+            <FaTimes size={22} />
           </button>
         </div>
 
-        <nav className="flex flex-col px-8 gap-6 text-white text-xl font-light">
-          <a href="/obbba" onClick={() => setOpen(false)}>
-            OBBBA
-          </a>
+        <nav className="flex flex-col px-6 py-7 text-white">
+          <MobileSection title="SERVICES">
+            <MobileLink href="/services/accounting" onClick={closeDrawer}>
+              Accounting
+            </MobileLink>
 
-          <div className="flex flex-col gap-2">
-            <p className="text-white text-xl">Resources</p>
-            <div className="flex flex-col gap-1 pl-4  mt-1">
-              <p className="text-xs uppercase tracking-widest text-blue-200 mt-2 mb-1">
-                Calculators
-              </p>
-              <a
+            <MobileLink href="/services/tax" onClick={closeDrawer}>
+              Tax
+            </MobileLink>
+
+            <MobileLink href="/services/payroll" onClick={closeDrawer}>
+              Payroll
+            </MobileLink>
+
+            <MobileLink href="/services/advisory" onClick={closeDrawer}>
+              Advisory
+            </MobileLink>
+          </MobileSection>
+
+          <MobileSection title="RESOURCES">
+            <MobileGroup title="Tax Guides">
+              <MobileLink href="/obbba" onClick={closeDrawer}>
+                OBBBA Information
+              </MobileLink>
+            </MobileGroup>
+
+            <MobileGroup title="Calculators">
+              <MobileLink
                 href="https://www.irs.gov/individuals/tax-withholding-estimator"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                className="text-base text-white/90 font-light pl-3 bg-white/10 rounded-md px-3 py-1"
+                external
+                onClick={closeDrawer}
               >
                 IRS Withholding Calculator
-              </a>
+              </MobileLink>
+            </MobileGroup>
 
-              <p className="text-xs uppercase tracking-widest text-blue-200 mt-3 mb-1">
-                Make a Tax Payment
-              </p>
-              <a
+            <MobileGroup title="Make a Payment">
+              <MobileLink
                 href="https://www.irs.gov/payments"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                className="text-base text-white/90 font-light pl-3 bg-white/10 rounded-md px-3 py-1"
+                external
+                onClick={closeDrawer}
               >
-                Federal
-              </a>
-              <a
+                Federal Tax Payment
+              </MobileLink>
+
+              <MobileLink
                 href="https://epayment.ky.gov/epay"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                className="text-base text-white/90 font-light pl-3 bg-white/10 rounded-md px-3 py-1"
+                external
+                onClick={closeDrawer}
               >
-                Kentucky
-              </a>
+                Kentucky Tax Payment
+              </MobileLink>
+            </MobileGroup>
 
-              <p className="text-xs uppercase tracking-widest text-blue-200 mt-3 mb-1">
-                Where's My Refund?
-              </p>
-              <a
+            <MobileGroup title="Where’s My Refund?">
+              <MobileLink
                 href="https://www.irs.gov/refunds"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                className="text-base text-white/90 font-light pl-3 bg-white/10 rounded-md px-3 py-1"
+                external
+                onClick={closeDrawer}
               >
-                Federal
-              </a>
-              <a
-                href="https://refund.ky.gov/"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                className="text-base text-white/90 font-light pl-3 bg-white/10 rounded-md px-3 py-1"
-              >
-                Kentucky
-              </a>
-            </div>
-          </div>
+                Federal Refund Status
+              </MobileLink>
 
-          <a href="/contact" onClick={() => setOpen(false)}>
-            Contact
+              <MobileLink
+                href="https://refund.ky.gov/"
+                external
+                onClick={closeDrawer}
+              >
+                Kentucky Refund Status
+              </MobileLink>
+            </MobileGroup>
+          </MobileSection>
+
+          <a
+            href="/contact"
+            onClick={closeDrawer}
+            className="mt-2 rounded-md px-3 py-2.5 text-lg transition hover:bg-white/10"
+          >
+            CONTACT
           </a>
         </nav>
 
-        <div className="mt-auto px-8 pb-12">
+        <div className="mt-auto border-t border-white/15 px-6 py-7">
           <a
             href="https://pogue.clientportal.com/#/login"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ backgroundColor: "#ebf1ff", color: "#0d47a1" }}
-            className="flex items-center gap-2 rounded-lg px-5 py-3 font-normal text-lg w-full justify-center"
+            className="flex w-full items-center justify-center gap-2 rounded-md
+                       bg-[#ebf1ff] px-5 py-3.5 text-sm font-semibold
+                       uppercase tracking-[-0.01em] text-[var(--firmBlue)]
+                       transition hover:bg-white"
           >
-            <FaUser />
-            CLIENT PORTAL
+            <FaUser size={14} />
+            Client Portal
           </a>
         </div>
-      </div>
+      </aside>
     </>
   );
 };
+
+const MobileSection = ({ title, children }) => (
+  <section className="mt-4  pt-5">
+    <h2 className="px-3 text-lg font-medium text-white">{title}</h2>
+
+    <div className="mt-2 flex flex-col gap-1">{children}</div>
+  </section>
+);
+
+const MobileGroup = ({ title, children }) => (
+  <div className="mt-4">
+    <h3 className="px-3 text-xs font-semibold uppercase tracking-[0.15em] text-blue-200">
+      {title}
+    </h3>
+
+    <div className="mt-1 flex flex-col gap-1">{children}</div>
+  </div>
+);
+
+const MobileLink = ({ href, external = false, onClick, children }) => (
+  <a
+    href={href}
+    target={external ? "_blank" : undefined}
+    rel={external ? "noopener noreferrer" : undefined}
+    onClick={onClick}
+    className="rounded-md px-3 py-2 text-[0.95rem] leading-5
+               text-white/85 transition
+               hover:bg-white/10 hover:text-white"
+  >
+    {children}
+  </a>
+);
 
 export default MobileDrawer;
