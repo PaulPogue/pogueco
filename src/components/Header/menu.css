@@ -20,7 +20,7 @@
   align-items: center;
   gap: 0.1rem;
 
-  color: var(--firmBlue);
+  color: white;
   text-decoration: none;
 
   transition: color 180ms ease;

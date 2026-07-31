@@ -1,0 +1,50 @@
+.hero {
+  margin-top: -132px;
+  padding-top: 200px;
+
+  background:
+    /* Strong left edge */
+    linear-gradient(
+      90deg,
+      rgba(1, 4, 40, 0.78) 0%,
+      rgba(1, 4, 40, 0.58) 8%,
+      rgba(1, 4, 40, 0.28) 20%,
+      rgba(1, 4, 40, 0) 38%
+    ),
+    /* Strong right edge */
+      linear-gradient(
+        270deg,
+        rgba(1, 4, 40, 0.78) 0%,
+        rgba(1, 4, 40, 0.58) 8%,
+        rgba(1, 4, 40, 0.28) 20%,
+        rgba(1, 4, 40, 0) 38%
+      ),
+    /* Large blue glow */
+      radial-gradient(
+        ellipse 95% 75% at 68% 50%,
+        rgba(120, 175, 255, 0.4) 0%,
+        rgba(95, 155, 255, 0.34) 22%,
+        rgba(65, 125, 245, 0.24) 42%,
+        rgba(35, 95, 215, 0.12) 62%,
+        rgba(13, 71, 161, 0) 82%
+      ),
+    /* Soft center highlight */
+      radial-gradient(
+        ellipse 55% 45% at 68% 50%,
+        rgba(255, 255, 255, 0.16) 0%,
+        rgba(255, 255, 255, 0.08) 35%,
+        rgba(255, 255, 255, 0) 70%
+      ),
+    /* Main page gradient */
+      linear-gradient(
+        180deg,
+        #020428 0%,
+        #06134f 18%,
+        #123a8f 45%,
+        #2f68d6 64%,
+        #6e9ef3 78%,
+        #bfd8ff 90%,
+        #f4f8ff 97%,
+        #ffffff 100%
+      );
+}
