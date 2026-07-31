@@ -1,7 +1,7 @@
 .main-menu > ul {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: 5rem;
 }
 
 .menu-item {
@@ -28,7 +28,7 @@
 
 .menu-item-trigger:hover,
 .menu-item-trigger.is-open {
-  color: var(--firmDarkerBlue);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .menu-item-chevron {
@@ -43,7 +43,7 @@
 
 .menu-item-chevron.is-open {
   transform: translateY(2px) scale(0.88);
-  color: var(--firmDarkerBlue);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .menu-hover-bridge {

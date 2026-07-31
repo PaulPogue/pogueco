@@ -1,16 +1,34 @@
 .hero {
   margin-top: -132px;
-  padding-top: 200px;
+  padding-top: 150px;
 
   background:
-    /* Strong left edge */
+/* Bottom white wash — guarantees a pure-white edge */
     linear-gradient(
-      90deg,
-      rgba(1, 4, 40, 0.78) 0%,
-      rgba(1, 4, 40, 0.58) 8%,
-      rgba(1, 4, 40, 0.28) 20%,
-      rgba(1, 4, 40, 0) 38%
+      180deg,
+      rgba(255, 255, 255, 0) 78%,
+      rgba(255, 255, 255, 0.08) 84%,
+      rgba(255, 255, 255, 0.28) 91%,
+      rgba(255, 255, 255, 0.65) 97%,
+      rgba(255, 255, 255, 1) 100%
     ),
+    /* Bottom white bloom */
+      radial-gradient(
+        ellipse 140% 70% at 50% 115%,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0.85) 50%,
+        rgba(255, 255, 255, 0.45) 60%,
+        rgba(255, 255, 255, 0.12) 75%,
+        rgba(255, 255, 255, 0) 90%
+      ),
+    /* Strong left edge */
+      linear-gradient(
+        90deg,
+        rgba(1, 4, 40, 0.78) 0%,
+        rgba(1, 4, 40, 0.58) 8%,
+        rgba(1, 4, 40, 0.28) 20%,
+        rgba(1, 4, 40, 0) 38%
+      ),
     /* Strong right edge */
       linear-gradient(
         270deg,
@@ -42,9 +60,15 @@
         #06134f 18%,
         #123a8f 45%,
         #2f68d6 64%,
-        #6e9ef3 78%,
-        #bfd8ff 90%,
-        #f4f8ff 97%,
+        #6e9ef3 72%,
+        #bfd8ff 84%,
+        #ffffff 94%,
         #ffffff 100%
       );
+}
+
+@media (min-width: 1024px) {
+  .hero-copy-wrap {
+    transform: translateY(-45px);
+  }
 }

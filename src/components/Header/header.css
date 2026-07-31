@@ -1,44 +1,84 @@
 .site-header {
-  position: relative;
-  z-index: 50;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   width: 100%;
+
+  transition:
+    background-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+/* Homepage */
+.site-header--hero {
   background: transparent;
 }
 
+.site-header--hero.is-scrolled {
+  background: var(--firmDarkerBlue);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+
+/* Interior pages */
+.site-header--compact {
+  background: var(--firmDarkerBlue);
+}
+
+/* Main layout */
 .site-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  width: min(calc(100% - 3rem), 1500px);
+  width: min(calc(100% - 3rem), 1520px);
   margin-inline: auto;
-  padding-block: 1rem;
+
+  padding-top: 0.75rem;
+  padding-bottom: 0.45rem;
 }
 
+.site-header-left {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+/* Logo */
 .site-header-logo {
   display: flex;
   align-items: center;
   flex-shrink: 0;
 }
 
-.site-header-logo img {
+.site-header-logo-full {
+  display: block;
   width: auto;
-  height: 100px;
+  height: 52px;
 }
 
-.site-header-desktop {
+/* Navigation */
+.site-header-primary {
   display: none;
-  align-items: center;
-  gap: 2.25rem;
-  color: var(--firmDarkBlue);
 }
 
 .site-header-mobile {
   display: flex;
+  align-items: center;
+}
+
+/* Optional contact-link styling */
+.site-header-contact {
+  color: white;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.site-header-contact:hover {
+  color: #afcfff;
 }
 
 @media (min-width: 768px) {
-  .site-header-desktop {
+  .site-header-primary {
     display: flex;
   }
 

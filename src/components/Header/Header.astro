@@ -1,30 +1,87 @@
 ---
 import { Image } from "astro:assets";
 import MainMenu from "./MainMenu";
-import Logo from "../../assets/logos/logoWhite.png";
+import LogoFull from "../../assets/logos/logoWhiteWOTagLine.png";
+import LogoMark from "../../assets/images/CenterLogoBlue.svg";
 import ClientPortalButton from "../buttons/ClientPortalButton.astro";
 import MobileDrawer from "../../components/nav/MobileDrawer";
 import "./header.css";
 import "./menu.css";
+
+interface Props {
+  variant?: "hero" | "compact";
+}
+
+const { variant = "compact" } = Astro.props;
 ---
 
-<header class="site-header">
+<header
+  id="site-header"
+  class:list={[
+    "site-header",
+    variant === "hero" ? "site-header--hero" : "site-header--compact",
+  ]}
+>
   <div class="site-header-inner">
-    <a href="/" aria-label="Home" class="site-header-logo">
-      <Image src={Logo} alt="Pogue & Company CPAs PLLC logo" height={110} />
-    </a>
+    <div class="site-header-left">
+      <a href="/" aria-label="Home" class="site-header-logo">
+        <Image
+          class="site-header-logo-full"
+          src={LogoFull}
+          alt="Pogue & Company CPAs PLLC logo"
+          height={110}
+        />
 
-    <div class="site-header-desktop">
-      <MainMenu client:load />
+        <!-- <Image
+          class="site-header-logo-mark"
+          src={LogoMark}
+          alt=""
+          aria-hidden="true"
+          height={52}
+        /> -->
+      </a>
 
-      <ClientPortalButton
-        href="https://pogue.clientportal.com/#/login"
-        buttonClass="site-header-portal"
-      />
+      <div class="site-header-primary">
+        <MainMenu client:load />
+      </div>
     </div>
 
-    <div class="site-header-mobile">
-      <MobileDrawer client:load />
-    </div>
+    <ClientPortalButton
+      href="https://pogue.clientportal.com/#/login"
+      buttonClass="site-header-portal"
+    />
+  </div>
+
+  <div class="site-header-mobile">
+    <MobileDrawer client:load />
   </div>
 </header>
+
+<script>
+  const header = document.getElementById("site-header");
+
+  if (header?.classList.contains("site-header--hero")) {
+    const COMPACT_AT = 80;
+    const EXPAND_AT = 20;
+
+    let compact = false;
+
+    const updateHeader = () => {
+      const y = window.scrollY;
+
+      if (!compact && y > COMPACT_AT) {
+        compact = true;
+        header.classList.add("is-scrolled");
+      } else if (compact && y < EXPAND_AT) {
+        compact = false;
+        header.classList.remove("is-scrolled");
+      }
+    };
+
+    updateHeader();
+
+    window.addEventListener("scroll", updateHeader, {
+      passive: true,
+    });
+  }
+</script>
