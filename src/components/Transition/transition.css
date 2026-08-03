@@ -1,20 +1,20 @@
 .transition-section {
   position: relative;
-  display: block;
   width: 100%;
-  min-height: 720px;
+  min-height: 590px;
   overflow: hidden;
   isolation: isolate;
-  margin: 40px 0 5px 0;
+  margin: 0 0 5px;
 
-  color: white;
+  color: var(--firmDarkerBlue);
+
   background:
     radial-gradient(
-      circle at 35% 45%,
-      rgba(13, 71, 161, 0.26),
+      circle at 30% 45%,
+      rgba(87, 145, 255, 0.12),
       transparent 52%
     ),
-    linear-gradient(135deg, var(--firmDarkerBlue), var(--firmDarkBlue));
+    #ffffff;
 }
 
 .transition-inner {
@@ -23,58 +23,25 @@
 
   display: flex;
   align-items: center;
+  justify-content: center;
 
   width: min(calc(100% - 3rem), 1260px);
-  min-height: 720px;
+  min-height: 590px;
   margin-inline: auto;
 }
 
 .transition-content {
-  width: 48%;
-  padding-block: 4.75rem;
-}
-
-.transition-photo {
-  position: absolute;
-  top: 0;
-  right: -5%;
-  bottom: 0;
-  z-index: 1;
-
-  width: 57%;
-  overflow: hidden;
-
-  clip-path: polygon(12% 0, 100% 0, 100% 100%, 12% 100%, 0 50%);
-}
-
-.transition-photo img {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-
-  display: block;
   width: 100%;
-  height: 100%;
-  max-width: none;
+  max-width: 1050px;
+  padding-block: 5rem;
 
-  object-fit: cover;
-  object-position: 12% 48%;
-}
-
-.transition-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-
-  /* background: rgba(13, 71, 161, 0.14); */
-  pointer-events: none;
+  text-align: center;
 }
 
 .transition-eyebrow {
   margin: 0 0 1.5rem;
 
-  color: #7fb0ff;
+  color: var(--firmBlue);
   font-size: 0.875rem;
   font-weight: 650;
   line-height: 1;
@@ -85,15 +52,16 @@
 .transition-rule {
   width: 4.5rem;
   height: 2px;
-  margin-bottom: 2.25rem;
+  margin: 0 auto 2.25rem;
 
-  background: var(--firmLightBlue);
+  background: var(--firmBlue);
 }
 
 .transition-heading {
-  max-width: 690px;
-  margin: 0;
+  max-width: 900px;
+  margin-inline: auto;
 
+  color: var(--firmDarkerBlue);
   font-size: clamp(2.75rem, 4vw, 4.25rem);
   font-weight: 650;
   line-height: 1.08;
@@ -103,14 +71,15 @@
 .transition-heading span {
   display: block;
   margin-top: 0.2em;
-  color: #5791ff;
+
+  color: var(--firmBlue);
 }
 
 .transition-copy {
-  max-width: 620px;
-  margin-top: 2rem;
+  max-width: 760px;
+  margin: 2rem auto 0;
 
-  color: rgba(255, 255, 255, 0.84);
+  color: #475569;
   font-size: 1.05rem;
   line-height: 1.7;
 }
@@ -124,7 +93,7 @@
 }
 
 .transition-copy strong {
-  color: #5791ff;
+  color: var(--firmBlue);
   font-weight: 650;
 }
 
@@ -132,30 +101,15 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 
-  margin-top: 3rem;
+  max-width: 900px;
+  margin: 3rem auto 0;
 }
 
 .transition-stat {
   min-width: 0;
   padding-inline: 1.15rem;
 
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.transition-photo-credit {
-  position: absolute;
-  top: 1.5rem;
-  left: 12rem;
-  z-index: 1;
-
-  color: rgba(255, 255, 255, 0.72);
-
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  border-left: 1px solid rgba(13, 71, 161, 0.18);
 }
 
 .transition-stat:first-child {
@@ -166,6 +120,7 @@
 .transition-stat strong {
   display: block;
 
+  color: var(--firmDarkerBlue);
   font-size: 1.6rem;
   font-weight: 650;
   line-height: 1.15;
@@ -175,79 +130,15 @@
   display: block;
   margin-top: 0.45rem;
 
-  color: rgba(255, 255, 255, 0.72);
+  color: #64748b;
   font-size: 0.9rem;
   line-height: 1.35;
 }
 
-/* Large desktop */
-@media (min-width: 1440px) {
-  .transition-content {
-    width: 48%;
-  }
-
-  .transition-photo {
-    right: -10%;
-    width: 56%;
-
-    clip-path: polygon(11% 0, 100% 0, 100% 100%, 11% 100%, 0 50%);
-  }
-
-  .transition-photo img {
-    object-position: 10% 48%;
-  }
-}
-
-/* Large laptop / smaller desktop */
-@media (max-width: 1439px) {
-  .transition-content {
-    width: 49%;
-  }
-
-  .transition-photo {
-    right: -10%;
-    width: 60%;
-
-    clip-path: polygon(12% 0, 100% 0, 100% 100%, 12% 100%, 0 50%);
-  }
-
-  .transition-photo img {
-    object-position: 7% 48%;
-    transform: scale(1);
-  }
-}
-
-/* Smaller desktop */
-@media (max-width: 1279px) {
-  .transition-content {
-    width: 51%;
-  }
-
-  .transition-photo {
-    right: -12%;
-    width: 64%;
-
-    clip-path: polygon(13% 0, 100% 0, 100% 100%, 13% 100%, 0 50%);
-  }
-
-  .transition-heading {
-    font-size: clamp(2.4rem, 4vw, 3.4rem);
-  }
-
-  .transition-copy {
-    max-width: 34rem;
-  }
-
-  .transition-photo img {
-    object-position: 10% 48%;
-  }
-}
-
-/* Tablet */
 @media (max-width: 1023px) {
   .transition-section,
   .transition-inner {
-    min-height: 680px;
+    min-height: 600px;
   }
 
   .transition-inner {
@@ -255,41 +146,24 @@
   }
 
   .transition-content {
-    width: 58%;
-    padding-block: 3.5rem;
-  }
-
-  .transition-photo {
-    right: -28%;
-    width: 78%;
-
-    clip-path: polygon(14% 0, 100% 0, 100% 100%, 14% 100%, 0 50%);
-  }
-
-  .transition-photo img {
-    object-position: 27% 48%;
+    padding-block: 4rem;
   }
 
   .transition-heading {
-    max-width: 30rem;
-    font-size: clamp(2.2rem, 5.2vw, 3rem);
-    line-height: 1.06;
+    max-width: 42rem;
+    font-size: clamp(2.4rem, 5.2vw, 3.4rem);
   }
 
   .transition-copy {
-    max-width: 29rem;
-    font-size: 0.95rem;
-    line-height: 1.55;
+    max-width: 40rem;
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   .transition-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 29rem;
-    gap: 1.4rem 0;
-  }
-
-  .transition-stat {
-    padding-inline: 1rem;
+    max-width: 38rem;
+    gap: 1.5rem 0;
   }
 
   .transition-stat:nth-child(3) {
@@ -298,36 +172,18 @@
   }
 }
 
-/* Mobile */
 @media (max-width: 767px) {
-  .transition-section {
+  .transition-section,
+  .transition-inner {
     min-height: auto;
-  }
-
-  .transition-photo {
-    position: relative;
-    inset: auto;
-
-    width: 100%;
-    height: 360px;
-
-    clip-path: none;
-  }
-
-  .transition-photo img {
-    position: relative;
-    inset: auto;
-    object-position: 18% 46%;
   }
 
   .transition-inner {
-    width: min(100% - 2rem, 640px);
-    min-height: auto;
+    width: min(calc(100% - 2rem), 640px);
   }
 
   .transition-content {
-    width: 100%;
-    padding-block: 3.5rem;
+    padding-block: 3.75rem;
   }
 
   .transition-heading {
@@ -340,15 +196,11 @@
 }
 
 @media (max-width: 479px) {
-  .transition-photo {
-    height: 300px;
-  }
-
   .transition-stats {
     grid-template-columns: 1fr 1fr;
   }
 
   .transition-stat {
-    padding-inline: 1rem;
+    padding-inline: 0.75rem;
   }
 }

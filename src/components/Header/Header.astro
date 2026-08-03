@@ -31,14 +31,6 @@ const { variant = "compact" } = Astro.props;
           alt="Pogue & Company CPAs PLLC logo"
           height={110}
         />
-
-        <!-- <Image
-          class="site-header-logo-mark"
-          src={LogoMark}
-          alt=""
-          aria-hidden="true"
-          height={52}
-        /> -->
       </a>
 
       <div class="site-header-primary">
@@ -46,10 +38,17 @@ const { variant = "compact" } = Astro.props;
       </div>
     </div>
 
-    <ClientPortalButton
-      href="https://pogue.clientportal.com/#/login"
-      buttonClass="site-header-portal"
-    />
+    <div class="site-header-actions">
+      <ClientPortalButton
+        href="/contact"
+        label="Contact"
+        variant="outline"
+        icon="none"
+        newTab={false}
+      />
+
+      <ClientPortalButton />
+    </div>
   </div>
 
   <div class="site-header-mobile">

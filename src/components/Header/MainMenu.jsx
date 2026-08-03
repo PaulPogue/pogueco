@@ -71,11 +71,11 @@ const MainMenu = () => {
           <ResourcesDropdown />
         </MenuItem>
 
-        <MenuItem
+        {/* <MenuItem
           label="Contact"
           hasDropdown={false}
           href="/contact"
-        ></MenuItem>
+        ></MenuItem> */}
       </ul>
     </nav>
   );
