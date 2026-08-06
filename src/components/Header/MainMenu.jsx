@@ -1,83 +1,166 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MenuItem from "./MenuItem";
 import ServicesDropdown from "./dropdowns/ServicesDropdown";
-import ToolsDropdown from "./dropdowns/ToolsDropdown";
 import ResourcesDropdown from "./dropdowns/ResourcesDropdown";
-import WhoIServeDropdown from "./dropdowns/WhoIServeDropdown";
 import "./dropdowns/services-menu.css";
 import "./dropdowns/resources-dropdown.css";
 
 const MainMenu = () => {
   const [activeMenu, setActiveMenu] = useState("");
+  const [displayedMenu, setDisplayedMenu] = useState("Services");
+  const [pageBlurred, setPageBlurred] = useState(false);
+  const [menuVisualOpen, setMenuVisualOpen] = useState(false);
 
-  // Toggle menu state
-  // const toggleMenu = (menu, isOpen) => {
-  //   setActiveMenu(isOpen ? menu : "");
-  // };
+  const closeTimer = useRef(null);
 
-  const toggleMenu = (menu, isOpen) => {
-    setActiveMenu(isOpen ? menu : "");
+  const cancelClose = () => {
+    if (closeTimer.current !== null) {
+      window.clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
   };
 
+  const openMenu = (menu) => {
+    cancelClose();
+
+    setDisplayedMenu(menu);
+    setActiveMenu(menu);
+    setPageBlurred(true);
+    setMenuVisualOpen(true);
+  };
+
+  const CLOSE_ANIMATION_MS = 400;
+
+  const closeMenu = () => {
+    cancelClose();
+
+    setPageBlurred(false);
+    setActiveMenu("");
+
+    closeTimer.current = window.setTimeout(() => {
+      setMenuVisualOpen(false);
+      closeTimer.current = null;
+    }, CLOSE_ANIMATION_MS);
+  };
+
+  const scheduleClose = () => {
+    cancelClose();
+
+    // Begin unblurring.
+    setPageBlurred(false);
+
+    closeTimer.current = window.setTimeout(() => {
+      // Begin collapsing the menu.
+      setActiveMenu("");
+
+      closeTimer.current = window.setTimeout(() => {
+        // Return the homepage header to transparent.
+        setMenuVisualOpen(false);
+        closeTimer.current = null;
+      }, CLOSE_ANIMATION_MS);
+    }, 0);
+  };
+
+  const toggleMenu = (menu) => {
+    cancelClose();
+
+    if (activeMenu === menu) {
+      closeMenu();
+      return;
+    }
+
+    openMenu(menu);
+  };
+
+  useEffect(() => {
+    document.body.classList.toggle("page-is-blurred", pageBlurred);
+    document.body.classList.toggle("menu-is-open", menuVisualOpen);
+
+    return () => {
+      document.body.classList.remove("page-is-blurred");
+      document.body.classList.remove("menu-is-open");
+    };
+  }, [pageBlurred, menuVisualOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+
+      if (closeTimer.current !== null) {
+        window.clearTimeout(closeTimer.current);
+      }
+
+      document.body.classList.remove("page-is-blurred");
+      document.body.classList.remove("menu-is-open");
+    };
+  }, []);
+
   return (
-    <nav className="main-menu relative">
-      <ul className="flex items-center gap-10">
-        {/* <MenuItem label="Home" href="/" hasDropdown={false} /> */}
+    <div
+      className="main-menu-system"
+      onMouseEnter={cancelClose}
+      onMouseLeave={scheduleClose}
+    >
+      <nav className="main-menu" aria-label="Primary navigation">
+        <ul>
+          <MenuItem
+            label="Services"
+            hasDropdown
+            isActive={activeMenu === "Services"}
+            onMouseEnter={() => openMenu("Services")}
+            onFocus={() => openMenu("Services")}
+            onClick={() => toggleMenu("Services")}
+          />
 
-        {/* <MenuItem
-          label="Blog"
-          hasDropdown={true}
-          isActive={activeMenu === "Blog"}
-          onClick={(isOpen) => toggleMenu("Blog", isOpen)}
-        >
-          <ServicesDropdown />
-        </MenuItem> */}
+          <MenuItem
+            label="Resources"
+            hasDropdown
+            isActive={activeMenu === "Resources"}
+            onMouseEnter={() => openMenu("Resources")}
+            onFocus={() => openMenu("Resources")}
+            onClick={() => toggleMenu("Resources")}
+          />
+        </ul>
+      </nav>
 
-        <MenuItem
-          label="Services"
-          hasDropdown={true}
-          dropdownClassName={"services-dropdown"}
-          isActive={activeMenu === "Services"}
-          onClick={(isOpen) => toggleMenu("Services", isOpen)}
-        >
-          <ServicesDropdown />
-        </MenuItem>
+      <div
+        className={`mega-menu-shell ${activeMenu ? "is-open" : ""} ${
+          displayedMenu === "Services" ? "is-services" : "is-resources"
+        }`}
+        onMouseEnter={cancelClose}
+        onMouseLeave={scheduleClose}
+      >
+        <div className="mega-menu-inner">
+          <div className="mega-menu-stage">
+            <section
+              className={`mega-menu-panel ${
+                displayedMenu === "Services" ? "is-active" : ""
+              }`}
+              aria-hidden={displayedMenu !== "Services"}
+            >
+              <ServicesDropdown />
+            </section>
 
-        {/* <MenuItem
-          label="Tools"
-          hasDropdown={true}
-          isActive={activeMenu === "Tools"}
-          onClick={(isOpen) => toggleMenu("Tools", isOpen)}
-        >
-          <ToolsDropdown />
-        </MenuItem> */}
-
-        {/* <MenuItem
-          label="Who I Serve"
-          hasDropdown={true}
-          isActive={activeMenu === "WhoIServe"}
-          onClick={(isOpen) => toggleMenu("WhoIServe", isOpen)}
-        >
-          <WhoIServeDropdown />
-        </MenuItem> */}
-
-        <MenuItem
-          label="Resources"
-          hasDropdown={true}
-          dropdownClassName={"resources-dropdown"}
-          isActive={activeMenu === "Resources"}
-          onClick={(isOpen) => toggleMenu("Resources", isOpen)}
-        >
-          <ResourcesDropdown />
-        </MenuItem>
-
-        {/* <MenuItem
-          label="Contact"
-          hasDropdown={false}
-          href="/contact"
-        ></MenuItem> */}
-      </ul>
-    </nav>
+            <section
+              className={`mega-menu-panel ${
+                displayedMenu === "Resources" ? "is-active" : ""
+              }`}
+              aria-hidden={displayedMenu !== "Resources"}
+            >
+              <ResourcesDropdown />
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

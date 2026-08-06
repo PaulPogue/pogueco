@@ -1,34 +1,46 @@
 /* src/styles/global.css */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Hubot+Sans:ital,wght@0,200..900;1,200..900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 
 @import "tailwindcss";
 
-/* Define color scheme */
+/* ============================
+   Design tokens
+============================ */
+
 :root {
+  /* Brand */
   --firmDarkerBlue: #01094a;
   --firmDarkBlue: #010e71;
   --firmBlue: #0d47a1;
   --firmLightBlue: #3b82f6;
-  --firmDark: #444444;
-  --firmMidGray: #909090;
-  --firmText: #333333;
+
   /* Neutrals */
+  --firmDark: #444444;
+  --firmGray: #666666;
+  --firmMidGray: #909090;
+  --firmLightGray: #d1d5db;
   --firmBorder: #e5e7eb;
   --firmBg: #ffffff;
+  --firmText: #333333;
 
-  --main-theme-color: #020345;
-  --blue-accent: rgba(0, 123, 255, 0.7);
-  --purple-accent: #4b0cfb;
-  --pink-accent: rgba(244, 114, 182, 0.7);
-  --astro-bg-dark: #000000; /* Or a very deep, deep indigo like #0F0022 */
-  --astro-glow-pink: #ff00c1; /* A vibrant pink/magenta */
-  --astro-glow-blue: #0077ff; /* A vibrant blue */
-  --astro-glow-purple: #7b00ff; /* A vibrant purple */
-  --astro-dark-blue-base: #0b001f; /*A dark, subtle blue/purple base for linear*/
+  /* Layout */
+  --content-width: 1200px;
+
+  /* Header / Mega Menu */
+  --header-bg: #01094a;
+  --menu-bg: #06134f;
+
+  --menu-panel-bg: #ffffff;
+  --menu-panel-text: #01094a;
+  --menu-panel-muted: #64748b;
+
+  --menu-transition: 180ms ease;
 }
+
+/* ============================
+   Base styles
+============================ */
 
 html {
   scroll-behavior: smooth;
@@ -36,19 +48,86 @@ html {
 }
 
 body {
+  margin: 0;
   font-family: "Mona Sans", sans-serif;
-  color: #1f2937; /* Tailwind gray-800 */
-  background-color: #ffffff;
+  color: #1f2937;
+  background-color: var(--firmBg);
 }
 
+/* ============================
+   Menu page blur
+============================ */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  z-index: 900;
+
+  background: rgba(1, 9, 74, 0.12);
+
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 320ms ease,
+    visibility 0s linear 320ms;
+}
+
+body.page-is-blurred::after {
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 320ms ease,
+    visibility 0s linear 0s;
+}
+
+body.page-is-blurred::after {
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 320ms ease,
+    visibility 0s linear 0s;
+}
+
+/* ============================
+   Shared layout containers
+============================ */
+
 .container {
-  @apply mx-auto px-4;
-  max-width: 1260px; /* Simplified from your 100% then 1260px */
+  width: min(calc(100% - 2rem), var(--content-width));
+  margin-inline: auto;
 }
 
 .container-wide {
-  @apply mx-auto px-4;
-  max-width: 1260px;
+  width: min(calc(100% - 2rem), var(--wide-content-width));
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .container,
+  .container-wide {
+    width: min(calc(100% - 3rem), var(--content-width));
+  }
+
+  .container-wide {
+    width: min(calc(100% - 3rem), var(--wide-content-width));
+  }
+}
+
+/* ============================
+   Shared typography
+============================ */
+
+.font-hubot {
+  font-family: "Hubot Sans", sans-serif;
 }
 
 .text-shadow {
@@ -57,304 +136,28 @@ body {
     0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
-.text-gradient-headline {
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
-}
-
 .section-header {
-  font-size: clamp(2.25rem, 4vw, 3rem); /* matches text-4xl → text-5xl */
-  font-weight: 600; /* font-bold */
-  line-height: 1.1; /* leading-tight */
-  letter-spacing: -0.025em; /* tracking-tight */
+  margin: 0 0 2rem;
+
+  color: var(--firmBlue);
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   text-align: center;
-  color: #0d47a1; /* firmBlue */
-  margin-bottom: 2rem;
 }
 
-.hero-cards {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-}
+/* ============================
+   Shared backgrounds
+============================ */
 
-.hero-location-credit {
-  /* Using a low-opacity white makes it look "etched" into the background */
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Helps legibility against the sky */
-  pointer-events: none; /* User can't accidentally select it while clicking cards */
-}
-
-.card {
-  position: relative;
-  width: 420px;
-  height: 600px;
-  display: flex;
-  flex-direction: column;
-  padding: 1.5rem 2rem;
-  border-radius: 1.5rem; /* Restores the rounded corners */
-  overflow: hidden; /* Clips the background image to the corners */
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* This is the "Shelf" that keeps buttons in a row */
-.card-body-content {
-  height: 200px; /* This keeps buttons perfectly aligned regardless of card height */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  z-index: 10; /* Keeps text above the image */
-}
-
-.card-cta-wrapper {
-  margin-top: auto;
-  margin-left: 0;
-  margin-right: auto;
-  width: max-content;
-  display: flex;
-  justify-content: flex-start;
-  z-index: 10;
-}
-
-.card-text {
-  flex-grow: 1; /* This is the magic: it eats up all empty space */
-  display: flex;
-  flex-direction: column;
-}
-
-.card-stat {
-  position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.08);
-  pointer-events: none;
-}
-
-/* Card with bottom image + fade */
-.card--with-image {
-  position: relative;
-  overflow: hidden;
-
-  /* Reserve space for the image so it doesn't collide with text/button */
-  padding-bottom: 12rem; /* tweak: 10rem–16rem based on card height */
-}
-
-/* Ensure ALL normal content sits above the image */
-.card--with-image > :not(.card-media) {
-  position: relative;
-  z-index: 2;
-}
-
-/* Media pinned to bottom */
-.card--with-image .card-media {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-
-  height: 45%; /* tweak 35–55% */
-  display: flex;
-  align-items: flex-end; /* pushes image down */
-  justify-content: center;
-  z-index: 1;
-}
-
-/* Image fills its region */
-.card--with-image .card-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: bottom center; /* 👈 important */
-  display: block;
-
-  opacity: 0.95;
-  /* transform: translateZ(0) scale(1.04); */
-}
-
-.card--with-image .card-title,
-.card--with-image .card-text,
-.card--with-image .mt-6 {
-  position: relative;
-  z-index: 2;
-}
-
-/* Fade overlay ON TOP of the image */
-.card--with-image .card-media::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -2px; /* KEY: cover the seam */
-  bottom: 0;
-
-  z-index: 2; /* critical: above img */
-}
-
-.card-thirty {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 15px;
-  margin-top: auto; /* This pushes it to the bottom if you want */
-}
-
-.card-thirty img {
-  max-width: 200px; /* Adjust size as needed */
-  height: auto;
-}
-
-.font-hubot {
-  font-family: "Hubot Sans", sans-serif;
-}
-
-/* Base site background for transition / conservative layout */
 .bg-site-base {
-  background-color: #ffffff;
+  background-color: var(--firmBg);
 }
 
-.bg-gradient {
-  background:
-    /* Focused highlight — quieter + less “glow” */
-    radial-gradient(
-      circle at 50% 42%,
-      rgba(96, 165, 250, 0.52) 0%,
-      rgba(59, 130, 246, 0.44) 20%,
-      rgba(32, 111, 243, 0.22) 36%,
-      transparent 56%
-    ),
-    /* Subtle depth — slightly reduced */
-      radial-gradient(
-        circle at 50% 75%,
-        rgba(4, 38, 159, 0.34) 0%,
-        transparent 62%
-      ),
-    /* Core gradient — slightly muted (less electric) */
-      linear-gradient(
-        to bottom,
-        #2158c8 0%,
-        #184aa9 38%,
-        #0f3f86 70%,
-        #08266a 100%
-      );
-
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.bg-gradient-bright {
-  background:
-    radial-gradient(
-      ellipse at 50% 42%,
-      rgba(224, 242, 254, 0.75) 0%,
-      rgba(186, 230, 253, 0.62) 12%,
-      rgba(125, 211, 252, 0.48) 24%,
-      rgba(96, 165, 250, 0.36) 36%,
-      rgba(59, 130, 246, 0.24) 48%,
-      transparent 82%
-    ),
-    radial-gradient(
-      ellipse at 50% 75%,
-      transparent 0%,
-      rgba(4, 38, 159, 0.34) 55%,
-      transparent 78%
-    ),
-    linear-gradient(
-      to bottom,
-      #2158c8 0%,
-      #184aa9 38%,
-      #0f3f86 70%,
-      #08266a 100%
-    );
-
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.bg-gradient-reversed {
-  background:
-    /* Inverted highlight — energy pushed outward */
-    radial-gradient(
-      ellipse at 50% 42%,
-      transparent 0%,
-      rgba(32, 111, 243, 0.22) 32%,
-      rgba(59, 130, 246, 0.44) 48%,
-      rgba(96, 165, 250, 0.52) 64%,
-      transparent 82%
-    ),
-    /* Inverted depth — supports edges instead of center */
-      radial-gradient(
-        ellipse at 50% 75%,
-        transparent 0%,
-        rgba(4, 38, 159, 0.34) 55%,
-        transparent 78%
-      ),
-    /* Core gradient unchanged (still vertical structure) */
-      linear-gradient(
-        to bottom,
-        #2158c8 0%,
-        #184aa9 38%,
-        #0f3f86 70%,
-        #08266a 100%
-      );
-
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-@media (min-width: 1280px) {
-  .container-wide {
-    max-width: 1440px;
-  }
-}
-/* Background positioning */
-@media (min-width: 1280px) {
-  .hero-bg {
-    background-size: 120% auto;
-    background-position: 58% 38%;
-  }
-}
-
-@media (max-width: 767px) {
-  .hero-bg {
-    background-size: 225% auto !important;
-    background-position: 25% 30% !important;
-  }
-}
-
-@media (max-width: 767px) {
-  .hero-content {
-    height: 600px;
-    justify-content: space-between;
-  }
-}
-/*********************/
-
-/* Stack on mobile */
-@media (max-width: 768px) {
-  .hero-cards {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card {
-    width: 90vw;
-    max-width: 420px;
-    height: auto;
-    min-height: 500px;
-  }
-
-  .card-body-content {
-    height: auto;
-  }
-}
-
-/* Footer styling */
+/* ============================
+   Footer
+============================ */
 
 .footer-grid {
   display: grid;
@@ -384,23 +187,27 @@ body {
   }
 }
 
-/******************/
+/* ============================
+   SweetAlert2 site theme
+============================ */
 
-/* SweetAlert2 - site theme */
 .swal2-site-popup {
-  border-radius: 24px;
   padding: 28px 28px 22px;
+  border-radius: 24px;
+
   box-shadow: 0 25px 60px rgba(2, 8, 23, 0.25);
 }
 
 .swal2-site-title {
+  margin-top: 6px;
+
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin-top: 6px;
 }
 
 .swal2-site-html {
   margin-top: 8px;
+
   color: rgba(15, 23, 42, 0.75);
   font-size: 1rem;
 }
@@ -410,18 +217,20 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
+
   margin-top: 16px;
   padding: 10px 18px;
+
+  border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 12px;
 
-  background: #ebf1ff; /* matches your button */
+  background: #ebf1ff;
   color: var(--firmBlue);
 
   font-size: 1rem;
   font-weight: 600;
-
-  border: 1px solid rgba(15, 23, 42, 0.08);
   cursor: pointer;
+
   transition:
     transform 160ms ease,
     box-shadow 160ms ease;
@@ -434,6 +243,7 @@ body {
 
 .swal2-site-confirm:focus-visible {
   outline: none;
+
   box-shadow:
     0 0 0 3px rgba(255, 255, 255, 0.65),
     0 0 0 6px rgba(59, 130, 246, 0.35);
