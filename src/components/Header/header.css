@@ -1,28 +1,18 @@
+/* Homepage header — always gradient */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 1000;
   isolation: isolate;
+
+  background-image: var(--home-surface-background);
+  background-repeat: no-repeat;
+  background-size: 100% var(--brand-gradient-height);
+  background-position: top center;
 }
 
-/* Homepage */
-.site-header--hero {
-  /* background: transparent; */
-  background: var(--menu-bg);
-  transition:
-    background-color 300ms ease,
-    box-shadow 300ms ease;
-}
-
-/* Homepage after scrolling */
 .site-header--hero.is-scrolled {
-  background: var(--header-bg);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-}
-
-/* Homepage while menu is open */
-body.menu-is-open .site-header--hero:not(.is-scrolled) {
-  background: var(--header-bg);
 }
 
 .mega-menu-shell,
@@ -31,9 +21,9 @@ body.menu-is-open .site-header--hero:not(.is-scrolled) {
 }
 
 /* Interior pages */
-.site-header--compact {
+/* .site-header--compact {
   background: var(--header-bg);
-}
+} */
 
 /* Main layout */
 .site-header-inner {

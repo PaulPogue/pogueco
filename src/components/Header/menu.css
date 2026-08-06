@@ -79,6 +79,7 @@
 /* ============================
    Apple-style attached menu
 ============================ */
+
 .mega-menu-shell {
   --mega-menu-height: 0px;
 
@@ -91,7 +92,10 @@
   height: var(--mega-menu-height);
   overflow: hidden;
 
-  background: var(--menu-bg, var(--menu-bg));
+  background-image: var(--home-surface-background);
+  background-repeat: no-repeat;
+  background-size: 100% var(--brand-gradient-height);
+  background-position: center calc(-1 * var(--site-header-height));
 
   visibility: hidden;
   pointer-events: none;
@@ -132,7 +136,7 @@
   width: min(calc(100% - 3rem), var(--content-width));
   margin-inline: auto;
 
-  background: var(--menu-bg, var(--menu-bg));
+  background: transparent;
   color: white;
 }
 
