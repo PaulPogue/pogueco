@@ -28,8 +28,10 @@
   --content-width: 1200px;
 
   /* Header / Mega Menu */
-  --header-bg: #01094a;
-  --menu-bg: #06134f;
+  /* --header-bg: #01094a; */
+  --header-bg: #030934;
+  /* --menu-bg: #06134f; */
+  --menu-bg: #030934;
 
   --menu-panel-bg: #ffffff;
   --menu-panel-text: #01094a;

@@ -91,7 +91,7 @@
   height: var(--mega-menu-height);
   overflow: hidden;
 
-  background: var(--firmDarkerBlue, var(--firmDarkerBlue));
+  background: var(--menu-bg, var(--menu-bg));
 
   visibility: hidden;
   pointer-events: none;
@@ -113,11 +113,11 @@
 }
 
 .mega-menu-shell.is-open.is-services {
-  --mega-menu-height: 430px;
+  --mega-menu-height: 490px;
 }
 
 .mega-menu-shell.is-open.is-resources {
-  --mega-menu-height: 560px;
+  --mega-menu-height: 405px;
 }
 
 .mega-menu-inner {
@@ -132,7 +132,7 @@
   width: min(calc(100% - 3rem), var(--content-width));
   margin-inline: auto;
 
-  background: var(--firmDarkerBlue, var(--firmDarkerBlue));
+  background: var(--menu-bg, var(--menu-bg));
   color: white;
 }
 
