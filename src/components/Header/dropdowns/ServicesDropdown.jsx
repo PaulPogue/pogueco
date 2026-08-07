@@ -1,49 +1,60 @@
 import React from "react";
-import Icon from "../../Icons/Icon";
 
-const services = [
+const serviceGroups = [
   {
-    title: "Accounting",
+    eyebrow: "Accounting",
     href: "/services/accounting",
-    icon: "accounting",
+    primary: "Accounting Services",
     links: [
-      "Bookkeeping and reporting",
-      "Cleanup and catch-up",
-      "QuickBooks support",
-      "Year-end accounting",
+      {
+        label: "Bookkeeping and reporting",
+        href: "/services/accounting#bookkeeping",
+      },
+      { label: "Cleanup and catch-up", href: "/services/accounting#cleanup" },
+      { label: "QuickBooks support", href: "/services/accounting#quickbooks" },
+      { label: "Year-end accounting", href: "/services/accounting#year-end" },
     ],
   },
   {
-    title: "Tax",
+    eyebrow: "Tax",
     href: "/services/tax",
-    icon: "tax",
+    primary: "Tax Services",
     links: [
-      "Individual tax returns",
-      "Business tax returns",
-      "Year-round tax planning",
-      "IRS notices and support",
+      { label: "Individual tax returns", href: "/services/tax#individual" },
+      { label: "Business tax returns", href: "/services/tax#business" },
+      { label: "Year-round tax planning", href: "/services/tax#planning" },
+      { label: "IRS notices and support", href: "/services/tax#irs-support" },
     ],
   },
   {
-    title: "Payroll",
+    eyebrow: "Payroll",
     href: "/services/payroll",
-    icon: "payroll",
+    primary: "Payroll Services",
     links: [
-      "Payroll processing",
-      "Direct deposit",
-      "New payroll setup",
-      "Platform transitions",
+      { label: "Payroll processing", href: "/services/payroll#processing" },
+      { label: "Direct deposit", href: "/services/payroll#direct-deposit" },
+      { label: "New payroll setup", href: "/services/payroll#setup" },
+      { label: "Platform transitions", href: "/services/payroll#transitions" },
     ],
   },
   {
-    title: "Advisory",
+    eyebrow: "Advisory",
     href: "/services/advisory",
-    icon: "advisory",
+    primary: "Advisory Services",
     links: [
-      "Business planning",
-      "Technology integration",
-      "Cash-flow guidance",
-      "Financial decision support",
+      {
+        label: "Business planning",
+        href: "/services/advisory#business-planning",
+      },
+      {
+        label: "Technology integration",
+        href: "/services/advisory#technology",
+      },
+      { label: "Cash-flow guidance", href: "/services/advisory#cash-flow" },
+      {
+        label: "Financial decision support",
+        href: "/services/advisory#decision-support",
+      },
     ],
   },
 ];
@@ -69,33 +80,26 @@ const ServicesDropdown = () => {
         </a>
       </div>
 
-      <nav className="services-menu-grid" aria-label="Services">
-        {services.map((service) => (
-          <a
-            key={service.title}
-            href={service.href}
-            className="services-menu-item"
-          >
-            <span className="services-menu-item-top">
-              <span className="services-menu-icon">
-                <Icon icon={service.icon} className="h-5 w-5" />
-              </span>
+      <nav className="services-menu-directory" aria-label="Services">
+        {serviceGroups.map((group) => (
+          <section className="services-menu-group" key={group.eyebrow}>
+            <p className="services-menu-group-eyebrow">{group.eyebrow}</p>
 
-              <span className="services-menu-arrow" aria-hidden="true">
+            <a className="services-menu-primary-link" href={group.href}>
+              <span>{group.primary}</span>
+              <span className="services-menu-primary-arrow" aria-hidden="true">
                 →
               </span>
-            </span>
+            </a>
 
-            <span className="services-menu-title">{service.title}</span>
-
-            <span className="services-menu-link-list">
-              {service.links.map((link) => (
-                <span key={link} className="services-menu-link-item">
-                  {link}
-                </span>
+            <div className="services-menu-links">
+              {group.links.map((link) => (
+                <a key={link.label} href={link.href}>
+                  {link.label}
+                </a>
               ))}
-            </span>
-          </a>
+            </div>
+          </section>
         ))}
       </nav>
     </div>

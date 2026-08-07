@@ -116,14 +116,6 @@
     visibility 0s linear 0s;
 }
 
-.mega-menu-shell.is-open.is-services {
-  --mega-menu-height: 490px;
-}
-
-.mega-menu-shell.is-open.is-resources {
-  --mega-menu-height: 405px;
-}
-
 .mega-menu-inner {
   min-height: 0;
   overflow: hidden;

@@ -5,15 +5,30 @@ import ResourcesDropdown from "./dropdowns/ResourcesDropdown";
 import "./dropdowns/services-menu.css";
 import "./dropdowns/resources-dropdown.css";
 
+const LEAVE_DELAY_MS = 160;
+const CLOSE_ANIMATION_MS = 400;
+
 const MainMenu = () => {
   const [activeMenu, setActiveMenu] = useState("");
   const [displayedMenu, setDisplayedMenu] = useState("Services");
   const [pageBlurred, setPageBlurred] = useState(false);
   const [menuVisualOpen, setMenuVisualOpen] = useState(false);
+  const [menuHeight, setMenuHeight] = useState(0);
+  const stageRef = useRef(null);
 
+  const leaveTimer = useRef(null);
   const closeTimer = useRef(null);
 
+  const cancelLeave = () => {
+    if (leaveTimer.current !== null) {
+      window.clearTimeout(leaveTimer.current);
+      leaveTimer.current = null;
+    }
+  };
+
   const cancelClose = () => {
+    cancelLeave();
+
     if (closeTimer.current !== null) {
       window.clearTimeout(closeTimer.current);
       closeTimer.current = null;
@@ -29,36 +44,33 @@ const MainMenu = () => {
     setMenuVisualOpen(true);
   };
 
-  const CLOSE_ANIMATION_MS = 400;
-
   const closeMenu = () => {
-    cancelClose();
-
-    setPageBlurred(false);
-    setActiveMenu("");
-
-    closeTimer.current = window.setTimeout(() => {
-      setMenuVisualOpen(false);
-      closeTimer.current = null;
-    }, CLOSE_ANIMATION_MS);
-  };
-
-  const scheduleClose = () => {
     cancelClose();
 
     // Begin unblurring.
     setPageBlurred(false);
 
+    // Preserve the 0ms timing you liked.
     closeTimer.current = window.setTimeout(() => {
-      // Begin collapsing the menu.
       setActiveMenu("");
 
+      // Keep visual-open state until collapse finishes.
       closeTimer.current = window.setTimeout(() => {
-        // Return the homepage header to transparent.
         setMenuVisualOpen(false);
         closeTimer.current = null;
       }, CLOSE_ANIMATION_MS);
     }, 0);
+  };
+
+  const scheduleClose = () => {
+    cancelLeave();
+
+    // Do NOT start unblurring or collapsing yet.
+    // Give the pointer time to enter another part of the menu system.
+    leaveTimer.current = window.setTimeout(() => {
+      leaveTimer.current = null;
+      closeMenu();
+    }, LEAVE_DELAY_MS);
   };
 
   const toggleMenu = (menu) => {
@@ -94,6 +106,10 @@ const MainMenu = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
 
+      if (leaveTimer.current !== null) {
+        window.clearTimeout(leaveTimer.current);
+      }
+
       if (closeTimer.current !== null) {
         window.clearTimeout(closeTimer.current);
       }
@@ -103,10 +119,22 @@ const MainMenu = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!activeMenu || !stageRef.current) return;
+
+    const activePanel = stageRef.current.querySelector(
+      ".mega-menu-panel.is-active",
+    );
+
+    if (!activePanel) return;
+
+    setMenuHeight(activePanel.scrollHeight);
+  }, [activeMenu, displayedMenu]);
+
   return (
     <div
       className="main-menu-system"
-      onMouseEnter={cancelClose}
+      onMouseEnter={cancelLeave}
       onMouseLeave={scheduleClose}
     >
       <nav className="main-menu" aria-label="Primary navigation">
@@ -135,10 +163,13 @@ const MainMenu = () => {
         className={`mega-menu-shell ${activeMenu ? "is-open" : ""} ${
           displayedMenu === "Services" ? "is-services" : "is-resources"
         }`}
-        onMouseEnter={cancelClose}
+        style={{
+          "--mega-menu-height": activeMenu ? `${menuHeight}px` : "0px",
+        }}
+        onMouseEnter={cancelLeave}
         onMouseLeave={scheduleClose}
       >
-        <div className="mega-menu-inner">
+        <div className="mega-menu-stage" ref={stageRef}>
           <div className="mega-menu-stage">
             <section
               className={`mega-menu-panel ${

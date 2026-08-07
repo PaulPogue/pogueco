@@ -1,13 +1,7 @@
 const resourceGroups = [
   {
+    eyebrow: "Guides",
     title: "Guides",
-    description: "Firm guidance and timely tax information.",
-    icon: (
-      <svg viewBox="0 0 24 24">
-        <path d="M3 5.5C3 4.67 3.67 4 4.5 4H10c1.1 0 2 .9 2 2v14c0-1.1-.9-2-2-2H4.5A1.5 1.5 0 0 0 3 19.5V5.5Z" />
-        <path d="M21 5.5C21 4.67 20.33 4 19.5 4H14c-1.1 0-2 .9-2 2v14c0-1.1.9-2 2-2h5.5A1.5 1.5 0 0 1 21 19.5V5.5Z" />
-      </svg>
-    ),
     links: [
       {
         label: "OBBBA Information",
@@ -16,18 +10,8 @@ const resourceGroups = [
     ],
   },
   {
+    eyebrow: "Calculators",
     title: "Calculators",
-    description: "Helpful tools from trusted government sources.",
-    icon: (
-      <svg viewBox="0 0 24 24">
-        <rect x="5" y="3" width="14" height="18" rx="2" />
-        <path d="M8 7h8" />
-        <path d="M8 11h2" />
-        <path d="M14 11h2" />
-        <path d="M8 15h2" />
-        <path d="M14 15h2" />
-      </svg>
-    ),
     links: [
       {
         label: "IRS Withholding Calculator",
@@ -37,15 +21,8 @@ const resourceGroups = [
     ],
   },
   {
+    eyebrow: "Payments",
     title: "Make a Payment",
-    description: "Direct links for federal and Kentucky tax payments.",
-    icon: (
-      <svg viewBox="0 0 24 24">
-        <rect x="3" y="6" width="18" height="12" rx="2" />
-        <path d="M3 10h18" />
-        <path d="M7 15h3" />
-      </svg>
-    ),
     links: [
       {
         label: "Federal Tax Payment",
@@ -59,16 +36,10 @@ const resourceGroups = [
       },
     ],
   },
+
   {
-    title: "Where’s My Refund?",
-    description: "Check the status of a filed federal or state return.",
-    icon: (
-      <svg viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="6" />
-        <path d="m16 16 4 4" />
-        <path d="m8.5 11 1.7 1.7 3.3-3.4" />
-      </svg>
-    ),
+    eyebrow: "Refunds",
+    title: "Refund Status",
     links: [
       {
         label: "Federal Refund Status",
@@ -105,24 +76,15 @@ export default function ResourcesDropdown() {
         </a>
       </div>
 
-      <nav className="resources-menu-panel" aria-label="Resources">
+      <nav className="resources-menu-directory" aria-label="Resources">
         {resourceGroups.map((group) => (
           <section key={group.title} className="resources-menu-group">
-            <div className="resources-menu-group-heading">
-              <span className="resources-menu-group-icon" aria-hidden="true">
-                {group.icon}
-              </span>
+            <p className="resources-menu-group-eyebrow">{group.eyebrow}</p>
 
-              <span className="resources-menu-group-heading-copy">
-                <span className="resources-menu-group-title">
-                  {group.title}
-                </span>
-
-                <span className="resources-menu-group-description">
-                  {group.description}
-                </span>
-              </span>
-            </div>
+            <h3 className="resources-menu-group-title">
+              {group.title}
+              <span aria-hidden="true">→</span>
+            </h3>
 
             <div className="resources-menu-link-list">
               {group.links.map((link) => (
@@ -133,14 +95,7 @@ export default function ResourcesDropdown() {
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
                 >
-                  <span>{link.label}</span>
-
-                  <span
-                    className="resources-menu-link-arrow"
-                    aria-hidden="true"
-                  >
-                    {link.external ? "↗" : "→"}
-                  </span>
+                  {link.label}
                 </a>
               ))}
             </div>

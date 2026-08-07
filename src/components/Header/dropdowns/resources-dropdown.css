@@ -2,11 +2,12 @@
    Resources mega menu
 ============================ */
 
+.services-menu,
 .resources-menu {
   display: grid;
   grid-template-columns: minmax(240px, 0.8fr) minmax(0, 2.2fr);
   align-items: stretch;
-  gap: 2.25rem;
+  gap: 3.5rem;
 
   width: 100%;
 }
@@ -84,169 +85,94 @@
 }
 
 /* ============================
-   Main resource panel
+   Resource directory
 ============================ */
 
-.resources-menu-panel {
+.services-menu-directory,
+.resources-menu-directory {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.85rem;
+  align-content: start;
 
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  overflow: visible;
-}
+  column-gap: 5rem;
+  row-gap: 2rem;
 
-.resources-menu-group {
-  min-width: 0;
-  padding: 1.25rem 1.35rem 1.3rem;
-
-  border: 1px solid rgba(13, 71, 161, 0.08);
-  border-radius: 1rem;
-
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(247, 250, 255, 1) 100%
-  );
-
-  box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.09),
-    0 2px 8px rgba(0, 0, 0, 0.04);
-
-  transition:
-    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 180ms ease,
-    box-shadow 220ms ease;
-}
-
-.resources-menu-group:hover {
-  transform: translateY(-3px);
-
-  border-color: rgba(13, 71, 161, 0.18);
-
-  box-shadow:
-    0 18px 36px rgba(0, 0, 0, 0.13),
-    0 4px 10px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  padding: 1rem 0;
 }
 
 /* ============================
-   Group heading
+   Resource groups
 ============================ */
 
-.resources-menu-group-heading {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-}
-
-.resources-menu-group-icon {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-
-  width: 2.35rem;
-  height: 2.35rem;
-
-  border-radius: 999px;
-
-  background: #edf4ff;
-  color: var(--firmBlue);
-}
-
-.resources-menu-group-icon svg {
-  width: 1.05rem;
-  height: 1.05rem;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.resources-menu-group-heading-copy {
-  display: grid;
-  gap: 0.22rem;
+.resources-menu-group {
   min-width: 0;
 }
 
-.resources-menu-group-title {
-  color: var(--firmDarkerBlue);
-  font-size: 0.96rem;
-  font-weight: 700;
-  line-height: 1.3;
+.services-menu-group-eyebrow,
+.resources-menu-group-eyebrow {
+  margin: 0 0 0.75rem;
+
+  color: #9fc3ff;
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.resources-menu-group-description {
-  max-width: 16rem;
+.resources-menu-group-title {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
 
-  color: #64748b;
-  font-size: 0.76rem;
-  line-height: 1.4;
+  margin: 0 0 0.75rem;
+
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.resources-menu-group-title span {
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  transition: transform 180ms ease;
 }
 
 /* ============================
    Resource links
 ============================ */
 
+.services-menu-links,
 .resources-menu-link-list {
   display: grid;
-  gap: 0.22rem;
-
-  margin-top: 1rem;
-  padding-left: 3.2rem;
+  gap: 0.42rem;
 }
 
 .resources-menu-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-
-  min-width: 0;
-  padding: 0.42rem 0.5rem;
-
-  border-radius: 0.5rem;
-
-  color: var(--firmBlue);
-  font-size: 0.8rem;
-  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+  font-weight: 500;
   line-height: 1.35;
   text-decoration: none;
 
   transition:
-    background-color 180ms ease,
     color 180ms ease,
     transform 180ms ease;
 }
 
 .resources-menu-link:hover {
-  background: #edf4ff;
-  color: var(--firmDarkerBlue);
-  transform: translateX(2px);
-}
-
-.resources-menu-link-arrow {
-  flex: 0 0 auto;
-
-  opacity: 0.7;
-
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
-}
-
-.resources-menu-link:hover .resources-menu-link-arrow {
-  opacity: 1;
-  transform: translateX(2px);
+  color: white;
+  /* transform: translateX(3px); */
 }
 
 .resources-menu-link:focus-visible {
-  outline: 2px solid rgba(13, 71, 161, 0.35);
-  outline-offset: 2px;
+  outline: 2px solid rgba(159, 195, 255, 0.75);
+  outline-offset: 4px;
+  border-radius: 0.15rem;
 }
 
 /* ============================
@@ -256,11 +182,11 @@
 @media (max-width: 1100px) {
   .resources-menu {
     grid-template-columns: minmax(210px, 0.7fr) minmax(0, 2fr);
-    gap: 1.5rem;
+    gap: 2.5rem;
   }
 
-  .resources-menu-group {
-    padding-inline: 1rem;
+  .resources-menu-directory {
+    column-gap: 3rem;
   }
 
   .resources-menu-title {
@@ -275,5 +201,10 @@
 
   .resources-menu-intro {
     display: none;
+  }
+
+  .resources-menu-directory {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
   }
 }
