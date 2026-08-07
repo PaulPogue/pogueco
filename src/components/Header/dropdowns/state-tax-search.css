@@ -1,0 +1,190 @@
+/* ============================
+   Inline state tax search
+============================ */
+
+.state-tax-search {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 1rem 0;
+}
+
+/* ============================
+   Heading
+============================ */
+
+.state-tax-search-header {
+  margin-bottom: 1.25rem;
+}
+
+.state-tax-eyebrow {
+  margin: 0 0 0.75rem;
+
+  color: #9fc3ff;
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.state-tax-title {
+  margin: 0;
+
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.state-tax-copy {
+  margin: 0.65rem 0 0;
+
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+/* ============================
+   Search field
+============================ */
+
+.state-tax-search-wrap {
+  width: min(100%, 32rem);
+}
+
+.state-tax-search-input {
+  width: 100%;
+
+  padding: 0.8rem 0.9rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0.65rem;
+
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--firmDarkerBlue);
+
+  font: inherit;
+  font-size: 0.9rem;
+
+  outline: none;
+
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.state-tax-search-input:focus {
+  border-color: #9fc3ff;
+
+  box-shadow: 0 0 0 3px rgba(159, 195, 255, 0.18);
+}
+
+/* ============================
+   Results
+============================ */
+
+.state-tax-results {
+  width: min(100%, 32rem);
+  margin-top: 0.75rem;
+}
+
+.state-tax-prompt,
+.state-tax-empty {
+  margin: 0;
+  padding: 0.55rem 0;
+
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.82rem;
+}
+
+.state-tax-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+
+  padding: 0.65rem 0;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.state-tax-result-state {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+
+.state-tax-result-name {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.state-tax-result-abbreviation {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.state-tax-result-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  flex: 0 0 auto;
+
+  color: #c6dcff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: color 180ms ease;
+}
+
+.state-tax-result-link:hover {
+  color: white;
+}
+
+.state-tax-not-applicable {
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.78rem;
+}
+
+/* ============================
+   Back
+============================ */
+
+.state-tax-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  width: fit-content;
+
+  margin-top: 1.25rem;
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  color: white;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    color 180ms ease,
+    gap 180ms ease;
+}
+
+.state-tax-back:hover {
+  gap: 0.7rem;
+  color: #9fc3ff;
+}

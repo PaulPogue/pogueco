@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from "react";
+import StateTaxSearch from "./StateTaxSearch";
+
 const resourceGroups = [
   {
     eyebrow: "Guides",
@@ -30,9 +33,8 @@ const resourceGroups = [
         external: true,
       },
       {
-        label: "Kentucky Tax Payment",
-        href: "https://epayment.ky.gov/epay",
-        external: true,
+        label: "State Tax Payment",
+        action: "payment",
       },
     ],
   },
@@ -47,61 +49,87 @@ const resourceGroups = [
         external: true,
       },
       {
-        label: "Kentucky Refund Status",
-        href: "https://refund.ky.gov/",
-        external: true,
+        label: "State Refund Status",
+        action: "refund",
       },
     ],
   },
 ];
 
-export default function ResourcesDropdown() {
+export default function ResourcesDropdown({ isActive }) {
+  const [stateSearchType, setStateSearchType] = useState(null);
+  useEffect(() => {
+    if (isActive) {
+      setStateSearchType(null);
+    }
+  }, [isActive]);
   return (
-    <div className="resources-menu">
-      <div className="resources-menu-intro">
-        <p className="resources-menu-eyebrow">Client resources</p>
+    <>
+      <div className="resources-menu">
+        <div className="resources-menu-intro">
+          <p className="resources-menu-eyebrow">Client resources</p>
 
-        <h2 className="resources-menu-title">
-          Useful tools, all in one place.
-        </h2>
+          <h2 className="resources-menu-title">
+            Useful tools, all in one place.
+          </h2>
 
-        <p className="resources-menu-copy">
-          Find tax information, calculators, payment portals, and refund-status
-          tools without searching through multiple government websites.
-        </p>
+          <p className="resources-menu-copy">
+            Find tax information, calculators, payment portals, and
+            refund-status tools without searching through multiple government
+            websites.
+          </p>
 
-        <a href="/resources" className="resources-menu-all-link">
-          View all resources
-          <span aria-hidden="true">→</span>
-        </a>
+          <a href="/resources" className="resources-menu-all-link">
+            View all resources
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        {stateSearchType ? (
+          <StateTaxSearch
+            type={stateSearchType}
+            onBack={() => setStateSearchType(null)}
+          />
+        ) : (
+          <nav className="resources-menu-directory" aria-label="Resources">
+            {resourceGroups.map((group) => (
+              <section key={group.title} className="resources-menu-group">
+                <p className="resources-menu-group-eyebrow">{group.eyebrow}</p>
+
+                <h3 className="resources-menu-group-title">
+                  {group.title}
+                  <span aria-hidden="true">→</span>
+                </h3>
+
+                <div className="resources-menu-link-list">
+                  {group.links.map((link) =>
+                    link.action ? (
+                      <button
+                        key={link.label}
+                        type="button"
+                        className="resources-menu-link resources-menu-link-button"
+                        onClick={() => setStateSearchType(link.action)}
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        className="resources-menu-link"
+                        target={link.external ? "_blank" : undefined}
+                        rel={link.external ? "noopener noreferrer" : undefined}
+                      >
+                        {link.label}
+                      </a>
+                    ),
+                  )}
+                </div>
+              </section>
+            ))}
+          </nav>
+        )}
       </div>
-
-      <nav className="resources-menu-directory" aria-label="Resources">
-        {resourceGroups.map((group) => (
-          <section key={group.title} className="resources-menu-group">
-            <p className="resources-menu-group-eyebrow">{group.eyebrow}</p>
-
-            <h3 className="resources-menu-group-title">
-              {group.title}
-              <span aria-hidden="true">→</span>
-            </h3>
-
-            <div className="resources-menu-link-list">
-              {group.links.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="resources-menu-link"
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noopener noreferrer" : undefined}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </section>
-        ))}
-      </nav>
-    </div>
+    </>
   );
 }

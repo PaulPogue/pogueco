@@ -18,6 +18,7 @@ const MainMenu = () => {
 
   const leaveTimer = useRef(null);
   const closeTimer = useRef(null);
+  const panelRef = useRef(null);
 
   const cancelLeave = () => {
     if (leaveTimer.current !== null) {
@@ -95,6 +96,25 @@ const MainMenu = () => {
   }, [pageBlurred, menuVisualOpen]);
 
   useEffect(() => {
+    if (!activeMenu || !panelRef.current) {
+      return;
+    }
+
+    const updateHeight = () => {
+      setMenuHeight(panelRef.current.scrollHeight);
+    };
+
+    updateHeight();
+
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(panelRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [activeMenu, displayedMenu]);
+
+  useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         closeMenu();
@@ -169,24 +189,18 @@ const MainMenu = () => {
         onMouseEnter={cancelLeave}
         onMouseLeave={scheduleClose}
       >
-        <div className="mega-menu-stage" ref={stageRef}>
+        <div className="mega-menu-inner">
           <div className="mega-menu-stage">
             <section
-              className={`mega-menu-panel ${
-                displayedMenu === "Services" ? "is-active" : ""
-              }`}
-              aria-hidden={displayedMenu !== "Services"}
+              ref={panelRef}
+              key={displayedMenu}
+              className="mega-menu-panel is-active"
             >
-              <ServicesDropdown />
-            </section>
-
-            <section
-              className={`mega-menu-panel ${
-                displayedMenu === "Resources" ? "is-active" : ""
-              }`}
-              aria-hidden={displayedMenu !== "Resources"}
-            >
-              <ResourcesDropdown />
+              {displayedMenu === "Services" ? (
+                <ServicesDropdown />
+              ) : (
+                <ResourcesDropdown isActive={activeMenu === "Resources"} />
+              )}
             </section>
           </div>
         </div>
