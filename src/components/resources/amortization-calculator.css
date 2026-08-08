@@ -1,0 +1,671 @@
+.amortization-tool {
+  width: min(calc(100% - 2rem), 1180px);
+  margin-inline: auto;
+  padding: clamp(3rem, 6vw, 5.5rem) 0 5rem;
+}
+
+.amortization-tool-header {
+  max-width: 780px;
+  margin-bottom: 2.25rem;
+}
+
+.amortization-tool-eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--firmBlue);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.amortization-tool-header h1,
+.amortization-schedule-heading h2 {
+  margin: 0;
+  color: var(--firmDarkerBlue);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.amortization-tool-header h1 {
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  line-height: 1.02;
+}
+
+.amortization-tool-header > p:last-child {
+  max-width: 720px;
+  margin: 1.15rem 0 0;
+  color: var(--firmGray);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.amortization-form {
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid var(--firmBorder);
+  border-radius: 1.25rem;
+  background: #fff;
+  box-shadow:
+    0 18px 45px rgba(1, 9, 74, 0.06),
+    0 4px 12px rgba(1, 9, 74, 0.04);
+}
+
+.amortization-core-grid,
+.amortization-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1.5rem;
+}
+
+.amortization-section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.75rem 0 1rem;
+  color: var(--firmBlue);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.amortization-section-label::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--firmBorder);
+}
+
+.amortization-field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.amortization-field > span {
+  color: var(--firmDarkerBlue);
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+.amortization-field input,
+.amortization-field select {
+  width: 100%;
+  min-width: 0;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--firmBorder);
+  border-radius: 0.7rem;
+  background: #fff;
+  color: var(--firmText);
+  font: inherit;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.amortization-field input:focus,
+.amortization-field select:focus {
+  border-color: var(--firmBlue);
+  box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+}
+
+.amortization-input-prefix,
+.amortization-input-suffix {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--firmBorder);
+  border-radius: 0.7rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.amortization-input-prefix:focus-within,
+.amortization-input-suffix:focus-within {
+  border-color: var(--firmBlue);
+  box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+}
+
+.amortization-input-prefix input,
+.amortization-input-suffix input {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.amortization-input-prefix > span,
+.amortization-input-suffix > span {
+  flex: 0 0 auto;
+  color: var(--firmGray);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.amortization-input-prefix > span {
+  padding-left: 0.9rem;
+}
+
+.amortization-input-suffix > span {
+  padding-right: 0.9rem;
+}
+
+.amortization-form-note {
+  margin: 1rem 0 0;
+  color: var(--firmGray);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.amortization-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.amortization-input-actions,
+.amortization-output-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.amortization-primary-button,
+.amortization-secondary-button,
+.amortization-print-button {
+  padding: 0.8rem 1rem;
+  border-radius: 0.7rem;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.amortization-primary-button {
+  border: 1px solid var(--firmBlue);
+  background: var(--firmBlue);
+  color: #fff;
+}
+
+.amortization-secondary-button,
+.amortization-print-button {
+  border: 1px solid var(--firmBorder);
+  background: #fff;
+  color: var(--firmBlue);
+}
+
+.amortization-error {
+  margin: 1rem 0 0;
+  color: #b42318;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.amortization-results {
+  margin-top: 2rem;
+}
+
+.amortization-solved-banner {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--firmBorder);
+  border-radius: 0.85rem;
+  background: #f7f9fc;
+}
+
+.amortization-solved-banner span {
+  color: var(--firmGray);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.amortization-solved-banner strong {
+  color: var(--firmDarkerBlue);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.amortization-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--firmBorder);
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.amortization-summary > div {
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  padding: 1.15rem 1.25rem;
+  border-bottom: 1px solid var(--firmBorder);
+}
+
+.amortization-summary > div:not(:nth-child(3n + 1)) {
+  border-left: 1px solid var(--firmBorder);
+}
+
+.amortization-summary > div:nth-last-child(-n + 3) {
+  border-bottom: 0;
+}
+
+.amortization-summary span,
+.amortization-detail-list span {
+  color: var(--firmGray);
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.amortization-summary strong {
+  color: var(--firmDarkerBlue);
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 700;
+}
+
+.amortization-summary small {
+  color: var(--firmMidGray);
+  font-size: 0.72rem;
+}
+
+.amortization-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.amortization-detail-panel {
+  padding: 1.2rem 1.25rem;
+  border: 1px solid var(--firmBorder);
+  border-radius: 1rem;
+  background: #fff;
+}
+
+.amortization-detail-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.amortization-detail-list > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.amortization-detail-list strong {
+  color: var(--firmDarkerBlue);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.amortization-detail-emphasis {
+  margin-top: 0.25rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--firmBorder);
+}
+
+.amortization-detail-emphasis strong {
+  font-size: 1rem;
+}
+
+.amortization-assumption-note {
+  margin: 0.9rem 0 0;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid rgba(13, 71, 161, 0.28);
+  background: #f7f9fc;
+  color: var(--firmGray);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.amortization-schedule-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.amortization-schedule-heading h2 {
+  font-size: 1.6rem;
+}
+
+.amortization-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--firmBorder);
+  border-radius: 1rem;
+  background: #fff;
+}
+
+.amortization-table {
+  width: 100%;
+  min-width: 880px;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+
+.amortization-table th,
+.amortization-table td {
+  padding: 0.72rem 0.85rem;
+  border-bottom: 1px solid var(--firmBorder);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.amortization-table th:first-child,
+.amortization-table td:first-child,
+.amortization-table th:nth-child(2),
+.amortization-table td:nth-child(2) {
+  text-align: left;
+}
+
+.amortization-table th {
+  background: #f7f9fc;
+  color: var(--firmDarkerBlue);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.amortization-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.amortization-year-total td {
+  background: #f5f8fc;
+  color: var(--firmDarkerBlue);
+  font-weight: 700;
+}
+
+.amortization-running-total td {
+  background: #edf3fb;
+  color: var(--firmDarkerBlue);
+  font-weight: 700;
+}
+
+.amortization-odd-first-row td {
+  background: #fbfcff;
+}
+
+.amortization-row-note {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--firmBlue);
+  font-size: 0.67rem;
+  font-weight: 650;
+}
+
+.amortization-disclaimer {
+  max-width: 930px;
+  margin: 1rem 0 0;
+  color: var(--firmMidGray);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 860px) {
+  .amortization-core-grid,
+  .amortization-options-grid,
+  .amortization-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .amortization-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .amortization-summary > div {
+    border-left: 0 !important;
+    border-bottom: 1px solid var(--firmBorder) !important;
+  }
+
+  .amortization-summary > div:nth-child(even) {
+    border-left: 1px solid var(--firmBorder) !important;
+  }
+
+  .amortization-summary > div:nth-last-child(-n + 2) {
+    border-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .amortization-tool {
+    width: min(calc(100% - 1.25rem), 1180px);
+  }
+
+  .amortization-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .amortization-summary > div {
+    border-left: 0 !important;
+    border-bottom: 1px solid var(--firmBorder) !important;
+  }
+
+  .amortization-summary > div:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .amortization-solved-banner,
+  .amortization-schedule-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .amortization-detail-list > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .amortization-detail-list strong {
+    text-align: left;
+  }
+}
+
+.amortization-print-header {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: portrait;
+    margin: 0.45in;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  body {
+    color: #111 !important;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .site-header,
+  footer,
+  .amortization-form,
+  .amortization-print-button,
+  .amortization-solved-banner,
+  .amortization-tool-header {
+    display: none !important;
+  }
+
+  .amortization-tool {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .amortization-results {
+    margin: 0;
+  }
+
+  .amortization-print-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #222;
+  }
+
+  .amortization-print-firm {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #111;
+  }
+
+  .amortization-print-title {
+    margin-top: 1px;
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: #222;
+  }
+
+  .amortization-print-meta {
+    font-size: 7.5pt;
+    color: #555;
+  }
+
+  .amortization-summary {
+    margin-bottom: 10px;
+    border: 1px solid #aaa;
+    border-radius: 0;
+    box-shadow: none;
+    background: #fff;
+  }
+
+  .amortization-summary > div {
+    padding: 5px 7px;
+    border-color: #bbb !important;
+  }
+
+  .amortization-summary span,
+  .amortization-detail-list span {
+    color: #555;
+    font-size: 7pt;
+  }
+
+  .amortization-summary strong,
+  .amortization-detail-list strong {
+    color: #111;
+    font-size: 8.5pt;
+  }
+
+  .amortization-summary small {
+    color: #666;
+    font-size: 6.5pt;
+  }
+
+  .amortization-detail-grid {
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .amortization-detail-panel {
+    padding: 6px 7px;
+    border: 1px solid #aaa;
+    border-radius: 0;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .amortization-detail-emphasis {
+    border-color: #bbb;
+  }
+
+  .amortization-assumption-note {
+    margin-top: 7px;
+    padding: 6px 8px;
+    border-left: 2px solid #777;
+    background: #fff !important;
+    color: #555;
+    font-size: 6.5pt;
+  }
+
+  .amortization-tool-eyebrow {
+    color: #111;
+    font-size: 6.5pt;
+    margin-bottom: 3px;
+  }
+
+  .amortization-schedule-heading {
+    margin: 10px 0 4px;
+  }
+
+  .amortization-schedule-heading h2 {
+    color: #111;
+    font-size: 10.5pt;
+  }
+
+  .amortization-table-wrap {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .amortization-table {
+    width: 100%;
+    min-width: 0;
+    border-collapse: collapse;
+    font-size: 7.2pt;
+  }
+
+  .amortization-table thead {
+    display: table-header-group;
+  }
+
+  .amortization-table th {
+    padding: 3.5px 5px;
+    border: 1px solid #888;
+    background: #eee !important;
+    color: #111;
+    font-size: 6.8pt;
+    font-weight: 700;
+  }
+
+  .amortization-table td {
+    padding: 3px 5px;
+    border: 1px solid #aaa;
+    color: #111;
+    background: #fff !important;
+  }
+
+  .amortization-year-total td {
+    background: #eee !important;
+    font-weight: 700;
+  }
+
+  .amortization-running-total td {
+    background: #ddd !important;
+    font-weight: 700;
+  }
+
+  .amortization-odd-first-row td {
+    background: #fff !important;
+  }
+
+  .amortization-row-note {
+    color: #444;
+    font-size: 6pt;
+  }
+
+  .amortization-disclaimer {
+    margin-top: 8px;
+    color: #555;
+    font-size: 6.2pt;
+    line-height: 1.3;
+  }
+
+  tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
