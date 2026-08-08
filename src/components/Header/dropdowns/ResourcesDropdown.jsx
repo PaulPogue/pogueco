@@ -21,6 +21,12 @@ const resourceGroups = [
         href: "https://www.irs.gov/individuals/tax-withholding-estimator",
         external: true,
       },
+
+      {
+        label: "Amortization Schedule Builder",
+        href: "/resources/amortization",
+        external: false,
+      },
     ],
   },
   {
