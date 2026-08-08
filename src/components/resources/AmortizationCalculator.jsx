@@ -67,42 +67,36 @@ const getTiming = ({ loanDate, firstPaymentDate, frequency }) => {
     };
   }
 
-  const regularDays = 365 / freq.periodsPerYear;
-
   if (!loan && !first) {
     return {
       loanDate: null,
       firstPaymentDate: null,
+      regularPeriodStart: null,
       daysToFirstPayment: null,
-      regularDays,
-      usesOddFirstPeriod: false,
+      oddDays: 0,
+      hasOddPeriod: false,
     };
   }
 
-  const days = daysBetween(loan, first);
+  const daysToFirstPayment = daysBetween(loan, first);
 
-  if (days <= 0) {
+  if (daysToFirstPayment < 0) {
     return {
-      error: "First payment date must be after the loan date.",
+      error: "First payment date cannot be before the loan date.",
     };
   }
+
+  const regularPeriodStart = addMonths(first, -freq.monthsPerPeriod);
+  const oddDays = daysBetween(loan, regularPeriodStart);
 
   return {
     loanDate: loan,
     firstPaymentDate: first,
-    daysToFirstPayment: days,
-    regularDays,
-    usesOddFirstPeriod: Math.abs(days - regularDays) > 0.5,
+    regularPeriodStart,
+    daysToFirstPayment,
+    oddDays,
+    hasOddPeriod: oddDays !== 0,
   };
-};
-
-const firstAccrualFactor = (annualRatePercent, timing) => {
-  if (!timing.loanDate || !timing.firstPaymentDate) {
-    return null;
-  }
-
-  const annualRate = annualRatePercent / 100;
-  return 1 + annualRate * (timing.daysToFirstPayment / 365);
 };
 
 const regularPeriodicRate = (annualRatePercent, frequency) => {
@@ -110,65 +104,60 @@ const regularPeriodicRate = (annualRatePercent, frequency) => {
   return annualRatePercent / 100 / freq.periodsPerYear;
 };
 
+const capitalizationFactor = (annualRatePercent, timing) => {
+  if (!timing.loanDate || !timing.hasOddPeriod) {
+    return 1;
+  }
+
+  // Simple Actual/365 accrual for the period before the regular
+  // amortization period begins. A negative odd period produces a
+  // corresponding reduction in the amortizing balance.
+  return 1 + (annualRatePercent / 100) * (timing.oddDays / 365);
+};
+
 const paymentFor = ({ principal, annualRate, periods, frequency, timing }) => {
-  if (periods <= 0) return null;
+  if (periods <= 0 || principal <= 0) return null;
 
   const periodicRate = regularPeriodicRate(annualRate, frequency);
+  const amortizingBalance =
+    principal * capitalizationFactor(annualRate, timing);
 
-  if (!timing.loanDate || !timing.firstPaymentDate) {
-    if (periodicRate === 0) return principal / periods;
-
-    return (
-      (principal * periodicRate) / (1 - Math.pow(1 + periodicRate, -periods))
-    );
-  }
-
-  const firstFactor = firstAccrualFactor(annualRate, timing);
+  if (amortizingBalance <= 0) return null;
 
   if (periodicRate === 0) {
-    return principal / periods;
+    return amortizingBalance / periods;
   }
 
-  // Value of n equal payments at the first payment date:
-  // payment at t=0 plus n-1 regular periodic payments.
-  const annuityDueFactor =
-    ((1 - Math.pow(1 + periodicRate, -periods)) / periodicRate) *
-    (1 + periodicRate);
-
-  return (principal * firstFactor) / annuityDueFactor;
+  return (
+    (amortizingBalance * periodicRate) /
+    (1 - Math.pow(1 + periodicRate, -periods))
+  );
 };
 
 const principalFor = ({ payment, annualRate, periods, frequency, timing }) => {
-  if (periods <= 0) return null;
+  if (periods <= 0 || payment <= 0) return null;
 
   const periodicRate = regularPeriodicRate(annualRate, frequency);
 
-  if (!timing.loanDate || !timing.firstPaymentDate) {
-    if (periodicRate === 0) return payment * periods;
-
-    return (
-      (payment * (1 - Math.pow(1 + periodicRate, -periods))) / periodicRate
-    );
-  }
-
-  const firstFactor = firstAccrualFactor(annualRate, timing);
+  let amortizingBalance;
 
   if (periodicRate === 0) {
-    return payment * periods;
+    amortizingBalance = payment * periods;
+  } else {
+    amortizingBalance =
+      (payment * (1 - Math.pow(1 + periodicRate, -periods))) / periodicRate;
   }
 
-  const annuityDueFactor =
-    ((1 - Math.pow(1 + periodicRate, -periods)) / periodicRate) *
-    (1 + periodicRate);
+  const factor = capitalizationFactor(annualRate, timing);
 
-  return (payment * annuityDueFactor) / firstFactor;
+  if (factor <= 0) return null;
+
+  return amortizingBalance / factor;
 };
 
 const periodsFor = ({ principal, payment, annualRate, frequency, timing }) => {
   if (principal <= 0 || payment <= 0) return null;
 
-  // Solve integer payment count by searching for the first n whose calculated
-  // level payment is less than or equal to the entered payment.
   for (let periods = 1; periods <= 5000; periods += 1) {
     const requiredPayment = paymentFor({
       principal,
@@ -203,7 +192,7 @@ const annualRateFor = ({ principal, payment, periods, frequency, timing }) => {
   }
 
   let low = 0;
-  let high = 1000; // annual nominal percentage ceiling
+  let high = 1000;
 
   for (let iteration = 0; iteration < 240; iteration += 1) {
     const mid = (low + high) / 2;
@@ -362,43 +351,41 @@ const buildSchedule = ({
   const periodicRate = regularPeriodicRate(annualRate, frequency);
   const extra = Math.max(toNumber(extraPayment) || 0, 0);
 
-  let balance = principal;
-  let totalInterest = 0;
+  const factor = capitalizationFactor(annualRate, timing);
+  const amortizingBalance = principal * factor;
+  const capitalizedInterest = amortizingBalance - principal;
+
+  let balance = amortizingBalance;
+  let scheduledInterest = 0;
   let totalPaid = 0;
 
   const paymentRows = [];
   const yearly = new Map();
 
-  let firstDate;
+  const firstDate = timing.firstPaymentDate
+    ? timing.firstPaymentDate
+    : addMonths(new Date(), freq.monthsPerPeriod);
 
-  if (timing.firstPaymentDate) {
-    firstDate = timing.firstPaymentDate;
-  } else {
-    const today = new Date();
-    firstDate = addMonths(today, freq.monthsPerPeriod);
-  }
-
-  for (let period = 1; period <= 5000 && balance > 0.005; period += 1) {
-    let interest;
-
-    if (period === 1 && timing.loanDate && timing.firstPaymentDate) {
-      interest =
-        balance * (annualRate / 100) * (timing.daysToFirstPayment / 365);
-    } else {
-      interest = balance * periodicRate;
-    }
-
+  for (
+    let period = 1;
+    period <= Math.min(numberOfPayments, 5000) && balance > 0.005;
+    period += 1
+  ) {
+    const interest = balance * periodicRate;
     const scheduledPrincipal = paymentAmount - interest;
 
     if (scheduledPrincipal <= 0 && extra <= 0) {
       return {
         error:
-          "The payment is not large enough to cover interest. The loan would not amortize.",
+          "The payment is not large enough to amortize the loan at this interest rate.",
       };
     }
 
     let principalPaid = Math.max(scheduledPrincipal, 0) + extra;
-    if (principalPaid > balance) principalPaid = balance;
+
+    if (principalPaid > balance) {
+      principalPaid = balance;
+    }
 
     const extraApplied = Math.min(
       extra,
@@ -408,7 +395,7 @@ const buildSchedule = ({
     const actualPayment = interest + principalPaid;
 
     balance = Math.max(balance - principalPaid, 0);
-    totalInterest += interest;
+    scheduledInterest += interest;
     totalPaid += actualPayment;
 
     const paymentDate = addMonths(
@@ -425,7 +412,7 @@ const buildSchedule = ({
         principal: 0,
         interest: 0,
         extra: 0,
-        endingBalance: 0,
+        endingBalance: balance,
       });
     }
 
@@ -447,14 +434,12 @@ const buildSchedule = ({
       extra: extraApplied,
       balance,
       year,
-      isOddFirstPeriod: period === 1 && timing.usesOddFirstPeriod,
     });
 
     if (balance <= 0.005) break;
   }
 
   const rows = [];
-
   let runningPayment = 0;
   let runningPrincipal = 0;
   let runningInterest = 0;
@@ -496,11 +481,25 @@ const buildSchedule = ({
   return {
     rows,
     paymentRows,
-    totalInterest,
+    capitalizedInterest,
+    amortizingBalance,
+    scheduledInterest,
+    totalInterest: scheduledInterest + capitalizedInterest,
     totalPaid,
     payoffPeriods: paymentRows.length,
     payoffDate: paymentRows[paymentRows.length - 1]?.date ?? firstDate,
   };
+};
+
+const formatAmountEntry = (value) => {
+  if (value === "" || value === null || value === undefined) return "";
+  const number = Number(String(value).replace(/,/g, ""));
+  if (!Number.isFinite(number)) return value;
+
+  return new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(number);
 };
 
 export default function AmortizationCalculator() {
@@ -518,6 +517,7 @@ export default function AmortizationCalculator() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [principalFocused, setPrincipalFocused] = useState(false);
 
   const solved = useMemo(() => {
     if (!submitted) return null;
@@ -614,8 +614,9 @@ export default function AmortizationCalculator() {
 
         <p>
           Enter three of the four core loan values and leave one blank. The
-          calculator solves for the missing value, accounts for an optional odd
-          first payment period, and builds a complete amortization schedule.
+          calculator solves for the missing value, capitalizes any
+          deferred-period interest into the amortizing balance, and builds a
+          complete amortization schedule.
         </p>
       </div>
 
@@ -635,10 +636,17 @@ export default function AmortizationCalculator() {
 
               <input
                 name="principal"
-                type="number"
-                min="0"
-                step="0.01"
-                value={form.principal}
+                type={principalFocused ? "number" : "text"}
+                inputMode="decimal"
+                min={principalFocused ? "0" : undefined}
+                step={principalFocused ? "0.01" : undefined}
+                value={
+                  principalFocused
+                    ? form.principal
+                    : formatAmountEntry(form.principal)
+                }
+                onFocus={() => setPrincipalFocused(true)}
+                onBlur={() => setPrincipalFocused(false)}
                 onChange={handleChange}
                 placeholder="Leave blank to solve"
               />
@@ -888,6 +896,12 @@ export default function AmortizationCalculator() {
             <div>
               <span>Total interest</span>
               <strong>{money.format(schedule.totalInterest)}</strong>
+              {Math.abs(schedule.capitalizedInterest) > 0.005 && (
+                <small>
+                  Includes {money.format(schedule.capitalizedInterest)}{" "}
+                  capitalized
+                </small>
+              )}
             </div>
 
             <div>
@@ -921,16 +935,37 @@ export default function AmortizationCalculator() {
                     </div>
 
                     <div>
+                      <span>Regular period begins</span>
+                      <strong>
+                        {dateLabel.format(solved.timing.regularPeriodStart)}
+                      </strong>
+                    </div>
+
+                    <div>
                       <span>Days to first payment</span>
                       <strong>{solved.timing.daysToFirstPayment} days</strong>
                     </div>
 
                     <div>
-                      <span>First-period treatment</span>
+                      <span>Deferred / odd period</span>
+                      <strong>{Math.abs(solved.timing.oddDays)} days</strong>
+                    </div>
+
+                    <div>
+                      <span>
+                        {solved.timing.oddDays >= 0
+                          ? "Capitalized interest"
+                          : "Short-period interest adjustment"}
+                      </span>
                       <strong>
-                        {solved.timing.usesOddFirstPeriod
-                          ? "Actual days / 365"
-                          : "Regular period"}
+                        {money.format(schedule.capitalizedInterest)}
+                      </strong>
+                    </div>
+
+                    <div className="amortization-detail-emphasis">
+                      <span>Adjusted amortizing balance</span>
+                      <strong>
+                        {money.format(schedule.amortizingBalance)}
                       </strong>
                     </div>
                   </div>
@@ -976,10 +1011,12 @@ export default function AmortizationCalculator() {
             </div>
           )}
 
-          {solved.timing.usesOddFirstPeriod && (
+          {solved.timing.hasOddPeriod && (
             <p className="amortization-assumption-note">
-              The first-period interest uses actual elapsed days divided by 365.
-              Remaining periods use the selected payment frequency.
+              Interest attributable to the period before the regular
+              amortization period begins is calculated using simple Actual / 365
+              and capitalized into the amortizing balance. No separate
+              odd-period interest payment is assumed.
             </p>
           )}
 
@@ -1009,23 +1046,9 @@ export default function AmortizationCalculator() {
                 {schedule.rows.map((row, index) => {
                   if (row.type === "payment") {
                     return (
-                      <tr
-                        key={`payment-${row.number}`}
-                        className={
-                          row.isOddFirstPeriod
-                            ? "amortization-odd-first-row"
-                            : ""
-                        }
-                      >
+                      <tr key={`payment-${row.number}`}>
                         <td>{row.number}</td>
-                        <td>
-                          {dateLabel.format(row.date)}
-                          {row.isOddFirstPeriod && (
-                            <span className="amortization-row-note">
-                              Odd first period
-                            </span>
-                          )}
-                        </td>
+                        <td>{dateLabel.format(row.date)}</td>
                         <td>{money.format(row.payment)}</td>
                         <td>{money.format(row.interest)}</td>
                         <td>{money.format(row.principal)}</td>
@@ -1054,13 +1077,13 @@ export default function AmortizationCalculator() {
           </div>
 
           <p className="amortization-disclaimer">
-            Estimates are for general informational purposes only. The odd
-            first-period calculation uses actual days / 365. Actual lender
-            calculations can vary because of day-count rules, compounding
-            conventions, payment timing, rounding, prepaid interest, fees,
-            escrow, and other contract terms. Points and other loan fees are
-            treated as reductions of borrower proceeds and do not change note
-            principal in this calculator.
+            <strong>Disclaimer:</strong> This calculator is provided for general
+            informational and planning purposes only. Results are estimates and
+            may differ from actual loan terms or lender calculations due to
+            differences in interest accrual, day-count conventions, compounding,
+            payment timing, fees, rounding, and treatment of deferred or
+            odd-period interest. Consult your loan documents or lender for
+            actual payment and payoff information.
           </p>
         </div>
       )}
