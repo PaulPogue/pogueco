@@ -1,0 +1,240 @@
+.filing-guide {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 4.5rem 1.75rem 5rem;
+  color: var(--firmDarkerBlue);
+}
+.filing-guide__hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+.filing-guide__eyebrow {
+  margin: 0 0 0.55rem;
+  color: var(--firmBlue);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.filing-guide h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 5vw, 4.3rem);
+  font-weight: 400;
+  line-height: 1.03;
+  letter-spacing: -0.045em;
+}
+.filing-guide__intro {
+  max-width: 760px;
+  margin: 1rem 0 0;
+  color: var(--firmGray);
+  line-height: 1.65;
+}
+.filing-guide__meta {
+  display: grid;
+  gap: 0.25rem;
+  flex: 0 0 auto;
+  text-align: right;
+  font-size: 0.75rem;
+}
+.filing-guide__meta span {
+  color: var(--firmGray);
+}
+.filing-guide__notice {
+  margin-bottom: 1rem;
+  padding: 1rem 1.15rem;
+  border-left: 2px solid rgba(13, 71, 161, 0.35);
+  background: #f7f9fc;
+  color: var(--firmGray);
+  font-size: 0.86rem;
+}
+.filing-guide__notice strong {
+  color: var(--firmDarkerBlue);
+}
+.filing-guide__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.filing-card {
+  margin-bottom: 1rem;
+  padding: 1.4rem;
+  border: 1px solid var(--firmBorder);
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(1, 9, 74, 0.035);
+}
+.filing-card--retirement {
+  border-left: 3px solid rgba(13, 71, 161, 0.35);
+}
+.filing-card__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+.filing-card h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.filing-card__heading a {
+  flex: 0 0 auto;
+  color: var(--firmBlue);
+  font-size: 0.75rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+.filing-card > p,
+.filing-example p,
+.filing-caution p,
+.income-types p {
+  color: var(--firmGray);
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+.filing-table {
+  margin-top: 1rem;
+  border: 1px solid var(--firmBorder);
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+.filing-table__head,
+.filing-table__row {
+  display: grid;
+  grid-template-columns: 1.5fr 0.7fr 1fr;
+  gap: 1rem;
+  padding: 0.72rem 0.9rem;
+  border-bottom: 1px solid var(--firmBorder);
+}
+.filing-table__head {
+  background: #f7f9fc;
+  color: var(--firmGray);
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+.filing-table__row:last-child {
+  border-bottom: 0;
+}
+.filing-table__row span {
+  color: var(--firmGray);
+  font-size: 0.8rem;
+}
+.filing-table__row strong {
+  text-align: right;
+  font-size: 0.86rem;
+}
+.filing-table__row small {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--firmGray);
+  font-weight: 400;
+}
+.filing-note {
+  margin-bottom: 0;
+  font-size: 0.75rem !important;
+}
+.filing-formula,
+.filing-big-number {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--firmBorder);
+  border-radius: 0.7rem;
+  background: #f7f9fc;
+}
+.filing-formula span,
+.filing-big-number span {
+  color: var(--firmGray);
+  font-size: 0.78rem;
+}
+.filing-formula strong {
+  text-align: right;
+  font-size: 0.86rem;
+}
+.filing-big-number strong {
+  font-size: 1.25rem;
+}
+.filing-list > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.68rem 0;
+  border-bottom: 1px solid var(--firmBorder);
+}
+.filing-list > div:last-child {
+  border-bottom: 0;
+}
+.filing-list span {
+  color: var(--firmGray);
+  font-size: 0.8rem;
+}
+.filing-list strong {
+  font-size: 0.86rem;
+  white-space: nowrap;
+}
+.filing-example,
+.filing-caution {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-left: 2px solid rgba(13, 71, 161, 0.28);
+  background: #f7f9fc;
+}
+.filing-example p,
+.filing-caution p {
+  margin: 0.3rem 0 0;
+}
+.income-types {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.income-types > div {
+  padding: 0.85rem;
+  border: 1px solid var(--firmBorder);
+  border-radius: 0.65rem;
+  background: #f7f9fc;
+}
+.income-types p {
+  margin: 0.35rem 0 0;
+}
+.filing-bullets {
+  margin: 0.75rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--firmGray);
+  font-size: 0.84rem;
+  line-height: 1.7;
+}
+.filing-guide__footer {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--firmBorder);
+  color: var(--firmGray);
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+@media (max-width: 760px) {
+  .filing-guide__hero {
+    display: block;
+  }
+  .filing-guide__meta {
+    margin-top: 1rem;
+    text-align: left;
+  }
+  .filing-guide__grid,
+  .income-types {
+    grid-template-columns: 1fr;
+  }
+  .filing-table__head,
+  .filing-table__row {
+    grid-template-columns: 1.25fr 0.75fr 0.9fr;
+    gap: 0.5rem;
+  }
+}

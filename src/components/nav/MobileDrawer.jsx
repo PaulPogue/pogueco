@@ -61,6 +61,20 @@ const MobileDrawer = () => {
           </button>
         </div>
 
+        <div className="px-6 pt-5">
+          <a
+            href="https://pogue.clientportal.com/#/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-center gap-2 rounded-md
+               bg-[#ebf1ff] px-5 py-3.5 text-sm font-semibold
+               uppercase tracking-[-0.01em] text-[var(--firmBlue)]"
+          >
+            <FaUser size={14} />
+            Client Portal
+          </a>
+        </div>
+
         <nav className="flex flex-col px-6 py-7 text-white">
           <MobileSection title="SERVICES">
             <MobileLink href="/services/accounting" onClick={closeDrawer}>
@@ -81,9 +95,26 @@ const MobileDrawer = () => {
           </MobileSection>
 
           <MobileSection title="RESOURCES">
-            <MobileGroup title="Tax Guides">
-              <MobileLink href="/obbba" onClick={closeDrawer}>
-                OBBBA Information
+            <MobileGroup title="Tax Resources">
+              <MobileLink
+                href="/resources/current-tax-facts"
+                onClick={closeDrawer}
+              >
+                Current Tax Facts
+              </MobileLink>
+
+              <MobileLink
+                href="/resources/itemized-deductions"
+                onClick={closeDrawer}
+              >
+                Should I Itemize?
+              </MobileLink>
+
+              <MobileLink
+                href="/resources/do-i-have-to-file"
+                onClick={closeDrawer}
+              >
+                Am I Required to File a Tax Return?
               </MobileLink>
             </MobileGroup>
 
@@ -94,6 +125,10 @@ const MobileDrawer = () => {
                 onClick={closeDrawer}
               >
                 IRS Withholding Calculator
+              </MobileLink>
+
+              <MobileLink href="/resources/amortization" onClick={closeDrawer}>
+                Amortization Schedule Builder
               </MobileLink>
             </MobileGroup>
 
@@ -115,7 +150,7 @@ const MobileDrawer = () => {
               </MobileLink>
             </MobileGroup>
 
-            <MobileGroup title="Where’s My Refund?">
+            <MobileGroup title="Refunds">
               <MobileLink
                 href="https://www.irs.gov/refunds"
                 external
@@ -142,21 +177,6 @@ const MobileDrawer = () => {
             CONTACT
           </a>
         </nav>
-
-        <div className="mt-auto border-t border-white/15 px-6 py-7">
-          <a
-            href="https://pogue.clientportal.com/#/login"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex w-full items-center justify-center gap-2 rounded-md
-                       bg-[#ebf1ff] px-5 py-3.5 text-sm font-semibold
-                       uppercase tracking-[-0.01em] text-[var(--firmBlue)]
-                       transition hover:bg-white"
-          >
-            <FaUser size={14} />
-            Client Portal
-          </a>
-        </div>
       </aside>
     </>
   );
@@ -186,11 +206,17 @@ const MobileLink = ({ href, external = false, onClick, children }) => (
     target={external ? "_blank" : undefined}
     rel={external ? "noopener noreferrer" : undefined}
     onClick={onClick}
-    className="rounded-md px-3 py-2 text-[0.95rem] leading-5
-               text-white/85 transition
-               hover:bg-white/10 hover:text-white"
+    className="flex w-fit items-start gap-2 rounded-md px-3 py-2
+               text-[0.95rem] leading-5 text-white/85"
   >
-    {children}
+    <span
+      aria-hidden="true"
+      className="mt-[0.15rem] shrink-0 text-[0.8rem] text-[#9fc3ff]"
+    >
+      →
+    </span>
+
+    <span>{children}</span>
   </a>
 );
 

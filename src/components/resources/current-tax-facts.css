@@ -1,0 +1,405 @@
+.tax-facts {
+  width: min(calc(100% - 2rem), 1180px);
+  margin-inline: auto;
+  padding: clamp(3rem, 6vw, 5.5rem) 0 5rem;
+}
+
+.tax-facts__hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.tax-facts__hero > div:first-child {
+  max-width: 760px;
+}
+
+.tax-facts__eyebrow,
+.tax-facts__section-label {
+  margin: 0 0 0.65rem;
+  color: var(--firmBlue);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.tax-facts h1,
+.tax-facts h2,
+.tax-facts h3 {
+  color: var(--firmDarkerBlue);
+}
+
+.tax-facts h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.tax-facts__intro {
+  max-width: 700px;
+  margin: 1rem 0 0;
+  color: var(--firmGray);
+  line-height: 1.65;
+}
+
+.tax-facts__meta {
+  display: grid;
+  gap: 0.3rem;
+  padding-bottom: 0.25rem;
+  color: var(--firmGray);
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.tax-facts__meta span:first-child {
+  color: var(--firmDarkerBlue);
+  font-weight: 700;
+}
+
+.tax-facts__notice {
+  margin-bottom: 1.25rem;
+  padding: 0.9rem 1rem;
+  border-left: 3px solid rgba(13, 71, 161, 0.3);
+  background: #f7f9fc;
+  color: var(--firmGray);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.tax-facts__notice strong {
+  color: var(--firmDarkerBlue);
+}
+
+.tax-facts__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.tax-facts__card {
+  padding: 1.35rem;
+  border: 1px solid var(--firmBorder);
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow:
+    0 12px 28px rgba(1, 9, 74, 0.04),
+    0 2px 8px rgba(1, 9, 74, 0.025);
+}
+
+.tax-facts__card--wide {
+  grid-column: 1 / -1;
+}
+
+.tax-facts__card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tax-facts__card-heading h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: -0.025em;
+}
+
+.tax-facts__card-heading a {
+  flex: 0 0 auto;
+  color: var(--firmBlue);
+  font-size: 0.75rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.tax-facts__card-heading a:hover {
+  text-decoration: underline;
+}
+
+.tax-facts__rows {
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--firmBorder);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.tax-facts__rows--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tax-facts__stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--firmBorder);
+}
+
+.tax-facts__stat:nth-child(even) {
+  border-left: 1px solid var(--firmBorder);
+}
+
+.tax-facts__stat:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.tax-facts__stat span,
+.tax-facts__list span,
+.tax-facts__mileage span {
+  color: var(--firmGray);
+  font-size: 0.82rem;
+}
+
+.tax-facts__stat strong,
+.tax-facts__list strong,
+.tax-facts__mileage strong {
+  color: var(--firmDarkerBlue);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.tax-facts__brackets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.tax-facts__brackets h3,
+.tax-facts__mileage h3 {
+  margin: 0 0 0.55rem;
+  font-size: 0.9rem;
+}
+
+.tax-facts table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.tax-facts th,
+.tax-facts td {
+  padding: 0.5rem 0.65rem;
+  border-bottom: 1px solid var(--firmBorder);
+  text-align: left;
+}
+
+.tax-facts th:last-child,
+.tax-facts td:last-child {
+  text-align: right;
+}
+
+.tax-facts th {
+  background: #f7f9fc;
+  color: var(--firmDarkerBlue);
+  font-size: 0.72rem;
+}
+
+.tax-facts td {
+  color: var(--firmText);
+}
+
+.tax-facts__footnote {
+  margin: 0.75rem 0 0;
+  color: var(--firmGray);
+  font-size: 0.75rem;
+}
+
+.tax-facts__list {
+  display: grid;
+  gap: 0;
+}
+
+.tax-facts__list > div,
+.tax-facts__mileage-group > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.58rem 0;
+  border-bottom: 1px solid var(--firmBorder);
+}
+
+.tax-facts__list > div:last-child,
+.tax-facts__mileage-group > div:last-child {
+  border-bottom: 0;
+}
+
+.tax-facts__mileage {
+  display: grid;
+  gap: 1rem;
+}
+
+.tax-facts__mileage-group + .tax-facts__mileage-group {
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--firmBorder);
+}
+
+.tax-facts__footer {
+  display: grid;
+  grid-template-columns: 0.75fr 1.5fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--firmBorder);
+}
+
+.tax-facts__footer h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+
+.tax-facts__footer p {
+  margin: 0;
+  color: var(--firmGray);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+.tax-facts__disclaimer strong {
+  color: var(--firmDarkerBlue);
+}
+
+@media (max-width: 820px) {
+  .tax-facts__hero,
+  .tax-facts__footer {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .tax-facts__meta {
+    text-align: left;
+  }
+
+  .tax-facts__grid,
+  .tax-facts__brackets {
+    grid-template-columns: 1fr;
+  }
+
+  .tax-facts__card--wide {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .tax-facts {
+    width: min(calc(100% - 1.25rem), 1180px);
+  }
+
+  .tax-facts__rows--two {
+    grid-template-columns: 1fr;
+  }
+
+  .tax-facts__stat {
+    border-left: 0 !important;
+    border-bottom: 1px solid var(--firmBorder) !important;
+  }
+
+  .tax-facts__stat:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .tax-facts__card-heading {
+    flex-direction: column;
+  }
+}
+
+@media print {
+  @page {
+    size: portrait;
+    margin: 0.45in;
+  }
+
+  .site-header,
+  footer {
+    display: none !important;
+  }
+
+  .tax-facts {
+    width: 100%;
+    padding: 0;
+  }
+
+  .tax-facts__hero {
+    margin-bottom: 10px;
+  }
+
+  .tax-facts h1 {
+    font-size: 22pt;
+  }
+
+  .tax-facts__intro {
+    font-size: 8.5pt;
+  }
+
+  .tax-facts__notice {
+    padding: 6px 8px;
+    font-size: 7.5pt;
+  }
+
+  .tax-facts__grid {
+    gap: 8px;
+  }
+
+  .tax-facts__card {
+    padding: 9px;
+    border-radius: 0;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .tax-facts__card-heading {
+    margin-bottom: 6px;
+  }
+
+  .tax-facts__card-heading h2 {
+    font-size: 10pt;
+  }
+
+  .tax-facts__card-heading a {
+    font-size: 6.5pt;
+  }
+
+  .tax-facts__stat,
+  .tax-facts__list > div,
+  .tax-facts__mileage-group > div {
+    padding: 4px 5px;
+  }
+
+  .tax-facts__stat span,
+  .tax-facts__list span,
+  .tax-facts__mileage span,
+  .tax-facts td {
+    font-size: 7pt;
+  }
+
+  .tax-facts__stat strong,
+  .tax-facts__list strong,
+  .tax-facts__mileage strong {
+    font-size: 7.5pt;
+  }
+
+  .tax-facts th {
+    font-size: 6.5pt;
+  }
+
+  .tax-facts th,
+  .tax-facts td {
+    padding: 3px 4px;
+  }
+
+  .tax-facts__footer {
+    margin-top: 10px;
+    gap: 12px;
+  }
+
+  .tax-facts__footer p {
+    font-size: 6.5pt;
+  }
+}

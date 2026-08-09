@@ -139,7 +139,7 @@ export const stateTaxLinks = [
     state: "Maine",
     abbreviation: "ME",
     paymentUrl: "https://mainetaxportal.maine.gov/",
-    refundUrl: "https://portal.maine.gov/refundstatus/refund",
+    refundUrl: "https://revenue.maine.gov/_/#2",
   },
   {
     state: "Maryland",

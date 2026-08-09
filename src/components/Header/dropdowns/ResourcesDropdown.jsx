@@ -3,12 +3,20 @@ import StateTaxSearch from "./StateTaxSearch";
 
 const resourceGroups = [
   {
-    eyebrow: "Guides",
-    title: "Guides",
+    eyebrow: "Tax Resources",
+    title: "Tax Resources",
     links: [
       {
-        label: "OBBBA Information",
-        href: "/obbba",
+        label: "Current Tax Facts",
+        href: "/resources/current-tax-facts",
+      },
+      {
+        label: "Should I Itemize?",
+        href: "/resources/itemized-deductions",
+      },
+      {
+        label: "Am I Required to File a Tax Return?",
+        href: "/resources/do-i-have-to-file",
       },
     ],
   },
@@ -85,10 +93,10 @@ export default function ResourcesDropdown({ isActive }) {
             websites.
           </p>
 
-          <a href="/resources" className="resources-menu-all-link">
+          {/* <a href="/resources" className="resources-menu-all-link">
             View all resources
             <span aria-hidden="true">→</span>
-          </a>
+          </a> */}
         </div>
 
         {stateSearchType ? (
@@ -102,10 +110,7 @@ export default function ResourcesDropdown({ isActive }) {
               <section key={group.title} className="resources-menu-group">
                 <p className="resources-menu-group-eyebrow">{group.eyebrow}</p>
 
-                <h3 className="resources-menu-group-title">
-                  {group.title}
-                  <span aria-hidden="true">→</span>
-                </h3>
+                <h3 className="resources-menu-group-title">{group.title}</h3>
 
                 <div className="resources-menu-link-list">
                   {group.links.map((link) =>

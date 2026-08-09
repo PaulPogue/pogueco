@@ -1,0 +1,276 @@
+---
+import { filingRequirements2026 as facts } from "../../data/filingRequirements2026.js";
+import "./filing-requirements.css";
+const dollars = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
+const money = (value) => dollars.format(value);
+---
+
+<section class="filing-guide">
+  <header class="filing-guide__hero">
+    <div>
+      <p class="filing-guide__eyebrow">Individual tax guide</p>
+      <h1>Am I Required to File a Tax Return?</h1>
+      <p class="filing-guide__intro">
+        Filing requirements depend on filing status, age, dependency status, the
+        type of income you receive, and certain special taxes. Social Security
+        by itself often does not require a return, but other retirement or
+        investment income can change the answer.
+      </p>
+    </div>
+    <div class="filing-guide__meta">
+      <strong>Tax year {facts.year}</strong><span>Updated {facts.updated}</span>
+    </div>
+  </header>
+
+  <div class="filing-guide__notice">
+    <strong>Even if you are not required to file,</strong> filing may still recover
+    federal withholding, estimated payments, or refundable credits.
+  </div>
+
+  <section class="filing-card filing-card--wide">
+    <div class="filing-card__heading">
+      <div>
+        <p class="filing-guide__eyebrow">Start here</p><h2>
+          Gross income filing thresholds
+        </h2>
+      </div><a
+        href={facts.sources.pub505}
+        target="_blank"
+        rel="noopener noreferrer">IRS source ↗</a
+      >
+    </div>
+    <p>
+      For most taxpayers who cannot be claimed as a dependent, the filing
+      threshold is generally tied to filing status and age. These 2026 amounts
+      reflect the basic standard deduction plus the additional standard
+      deduction for age 65.
+    </p>
+    <div class="filing-table">
+      <div class="filing-table__head">
+        <span>Filing status</span><span>Under 65</span><span
+          >Age 65 or older</span
+        >
+      </div>
+      {
+        facts.regular.map((row) => (
+          <div class="filing-table__row">
+            <>
+              <span>{row.status}</span>
+              <strong>{money(row.under65)}</strong>
+              <strong>
+                {money(row.age65)}
+                {row.both65 && (
+                  <small>{money(row.both65)} if both spouses are 65+</small>
+                )}
+              </strong>
+            </>
+          </div>
+        ))
+      }
+    </div>
+    <p class="filing-note">
+      Married filing separately has special filing rules and can require a
+      return at very low income levels. Dependency, blindness, self-employment,
+      and other special situations can also override these general thresholds.
+    </p>
+  </section>
+
+  <section class="filing-card filing-card--wide filing-card--retirement">
+    <div class="filing-card__heading">
+      <div>
+        <p class="filing-guide__eyebrow">Retirement & Social Security</p><h2>
+          Social Security alone usually does not require a return
+        </h2>
+      </div><a
+        href={facts.sources.socialSecurity}
+        target="_blank"
+        rel="noopener noreferrer">IRS source ↗</a
+      >
+    </div>
+    <p>
+      If Social Security or equivalent Tier 1 railroad retirement benefits are
+      your only income, the benefits generally are not taxable and you may not
+      have to file. The answer can change when you also receive a pension, IRA
+      distributions, wages, interest, dividends, capital gains, or other income.
+    </p>
+    <div class="filing-formula">
+      <span>Quick Social Security test</span><strong
+        >½ of Social Security + other income + tax-exempt interest</strong
+      >
+    </div>
+    <p>
+      If that amount exceeds the applicable base amount below, part of your
+      Social Security may become taxable. These are <strong
+        >Social Security taxation thresholds</strong
+      >, not the normal gross-income filing thresholds.
+    </p>
+    <div class="filing-list">
+      {
+        facts.socialSecurity.baseAmounts.map((row) => (
+          <div>
+            <>
+              <span>{row.status}</span>
+              <strong>{money(row.amount)}</strong>
+            </>
+          </div>
+        ))
+      }
+    </div>
+    <div class="filing-example">
+      <strong>Why this matters for retirees</strong><p>
+        A retiree receiving only Social Security may have no federal filing
+        requirement. Add taxable pension income, IRA withdrawals, interest,
+        dividends, or gains, however, and both the normal filing threshold and
+        the taxation of Social Security need to be tested.
+      </p>
+    </div>
+  </section>
+
+  <div class="filing-guide__grid">
+    <section class="filing-card">
+      <div class="filing-card__heading">
+        <div>
+          <p class="filing-guide__eyebrow">Dependents</p><h2>
+            Earned vs. unearned income
+          </h2>
+        </div><a
+          href={facts.sources.pub501}
+          target="_blank"
+          rel="noopener noreferrer">IRS source ↗</a
+        >
+      </div>
+      <p>
+        Dependents use a different filing test. The IRS separately looks at
+        earned income, unearned income, and total gross income.
+      </p>
+      <div class="income-types">
+        <div>
+          <strong>Earned income</strong><p>
+            Wages, salaries, tips, professional fees, and other pay for work
+            performed.
+          </p>
+        </div><div>
+          <strong>Unearned income</strong><p>
+            Taxable interest, dividends, capital-gain distributions,
+            unemployment, taxable Social Security, pensions, annuities, and
+            certain trust income.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="filing-caution">
+        <strong>2026 dependent table pending</strong><p>
+          The IRS's currently published general dependent filing table is still
+          for tax year {facts.dependentLatestPublished.taxYear}. Update this
+          section when the 2026 Form 1040 instructions or Publication 501 filing
+          table is released.
+        </p>
+      </div> -->
+    </section>
+
+    <section class="filing-card">
+      <div class="filing-card__heading">
+        <div>
+          <p class="filing-guide__eyebrow">Self-employment</p><h2>
+            $400 can trigger a filing requirement
+          </h2>
+        </div><a
+          href={facts.sources.selfEmployment}
+          target="_blank"
+          rel="noopener noreferrer">IRS source ↗</a
+        >
+      </div>
+      <div class="filing-big-number">
+        <span>Net earnings from self-employment</span><strong
+          >{money(facts.selfEmployment.netEarningsThreshold)}+</strong
+        >
+      </div>
+      <p>
+        You generally must file and calculate self-employment tax when net
+        earnings from self-employment are $400 or more, even if total income is
+        below the ordinary filing threshold.
+      </p>
+      <p>
+        This can apply to independent contractors, side businesses, freelance
+        work, and other Schedule C activities.
+      </p>
+      <div class="filing-caution">
+        <strong>A 1099 is not the filing test</strong>
+
+        <p>
+          The filing requirement and the Form 1099 reporting requirement are
+          separate rules. For 2026, net earnings from self-employment of $400 or
+          more can require a tax return, while a business generally does not
+          have to issue Form 1099-NEC until reportable payments reach $2,000.
+        </p>
+
+        <p>
+          As a result, you may have income that must be reported even though you
+          did not receive a Form 1099.
+        </p>
+      </div>
+    </section>
+
+    <section class="filing-card">
+      <div class="filing-card__heading">
+        <div>
+          <p class="filing-guide__eyebrow">Other situations</p><h2>
+            Income is not the only test
+          </h2>
+        </div><a
+          href={facts.sources.filingCheck}
+          target="_blank"
+          rel="noopener noreferrer">IRS guidance ↗</a
+        >
+      </div>
+      <ul class="filing-bullets">
+        <li>
+          Special taxes can require a return even when gross income is below the
+          normal threshold.
+        </li><li>
+          Household employment taxes can create a filing requirement.
+        </li><li>
+          Advance payments or certain tax-credit reconciliations can require
+          filing.
+        </li><li>Married filing separately has special rules.</li><li>
+          Nonresident or dual-status alien rules differ from the general rules
+          shown here.
+        </li>
+      </ul>
+    </section>
+
+    <section class="filing-card">
+      <div class="filing-card__heading">
+        <div>
+          <p class="filing-guide__eyebrow">File anyway?</p><h2>
+            A return may still put money back in your pocket
+          </h2>
+        </div>
+      </div>
+      <p>You may want to file even when you are not required to if:</p>
+      <ul class="filing-bullets">
+        <li>
+          Federal income tax was withheld from wages, pensions, or other
+          payments.
+        </li><li>You made federal estimated tax payments.</li><li>
+          You qualify for a refundable tax credit.
+        </li><li>
+          You need a filed return for another financial or administrative
+          purpose.
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <footer class="filing-guide__footer">
+    <p>
+      <strong>Disclaimer:</strong> This guide summarizes common federal filing rules
+      and is not a substitute for the final Form 1040 instructions, Publication 501,
+      or advice based on your specific facts. Filing requirements can change because
+      of income type, dependency status, filing status, special taxes, or other circumstances.
+    </p>
+  </footer>
+</section>

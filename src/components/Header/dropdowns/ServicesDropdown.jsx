@@ -74,32 +74,38 @@ const ServicesDropdown = () => {
           services available.
         </p>
 
-        <a href="/services" className="services-menu-all-link">
+        {/* <a href="/services" className="services-menu-all-link">
           View all services
           <span aria-hidden="true">→</span>
-        </a>
+        </a> */}
       </div>
 
       <nav className="services-menu-directory" aria-label="Services">
         {serviceGroups.map((group) => (
-          <section className="services-menu-group" key={group.eyebrow}>
+          <a
+            className="services-menu-group"
+            href={group.href}
+            key={group.eyebrow}
+          >
             <p className="services-menu-group-eyebrow">{group.eyebrow}</p>
 
-            <a className="services-menu-primary-link" href={group.href}>
+            <div className="services-menu-primary-link">
               <span>{group.primary}</span>
+
               <span className="services-menu-primary-arrow" aria-hidden="true">
                 →
               </span>
-            </a>
+            </div>
+            <p className="services-menu-includes">Services include</p>
 
             <div className="services-menu-links">
               {group.links.map((link) => (
-                <a key={link.label} href={link.href}>
+                <span className="services-menu-description" key={link.label}>
                   {link.label}
-                </a>
+                </span>
               ))}
             </div>
-          </section>
+          </a>
         ))}
       </nav>
     </div>

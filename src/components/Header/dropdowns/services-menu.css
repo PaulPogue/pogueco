@@ -73,10 +73,10 @@
     gap 180ms ease;
 }
 
-.services-menu-all-link:hover {
+/* .services-menu-all-link:hover {
   gap: 0.85rem;
   color: #9fc3ff;
-}
+} */
 
 .services-menu-all-link:focus-visible {
   outline: 2px solid rgba(159, 195, 255, 0.75);
@@ -100,8 +100,29 @@
 }
 
 .services-menu-group {
-  min-width: 0;
+  display: block;
+
+  padding: 0.85rem 1rem;
+  margin: -0.85rem -1rem;
+
+  border-radius: 0.75rem;
+
+  color: inherit;
+  text-decoration: none;
+
+  transition: background-color 160ms ease;
 }
+
+.services-menu-group:hover .services-menu-primary-link {
+  color: #9fc3ff;
+}
+
+.services-menu-group:focus-visible {
+  outline: 2px solid rgba(159, 195, 255, 0.72);
+  outline-offset: 4px;
+}
+
+/* Service category label */
 
 .services-menu-group-eyebrow {
   margin: 0 0 0.8rem;
@@ -113,6 +134,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+
+/* Main service destination */
 
 .services-menu-primary-link {
   display: inline-flex;
@@ -126,11 +149,8 @@
   font-weight: 620;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  text-decoration: none;
 
-  transition:
-    color 180ms ease,
-    gap 180ms ease;
+  transition: color 180ms ease;
 }
 
 .services-menu-primary-link:hover {
@@ -139,38 +159,48 @@
 }
 
 .services-menu-primary-arrow {
+  display: inline-block;
+
   font-size: 0.9rem;
   line-height: 1;
   opacity: 0.8;
+
+  transition: transform 160ms ease;
 }
 
-.services-menu-links,
-.resources-menu-link-list {
+.services-menu-group:hover .services-menu-primary-arrow {
+  transform: translateX(3px);
+}
+
+/* Descriptive service items */
+
+.services-menu-links {
   display: grid;
   gap: 0.42rem;
 }
 
-.services-menu-links a {
-  width: fit-content;
+.services-menu-includes {
+  margin: 0 0 0.35rem;
+
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.services-menu-description {
+  display: block;
+  margin-left: 0.4rem;
 
   color: rgba(255, 255, 255, 0.66);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 500;
   line-height: 1.35;
-  text-decoration: none;
-
-  transition:
-    color 180ms ease,
-    transform 180ms ease;
 }
 
-.services-menu-links a:hover {
-  color: white;
-  /* transform: translateX(3px); */
-}
+/* Keyboard focus */
 
-.services-menu-primary-link:focus-visible,
-.services-menu-links a:focus-visible {
+.services-menu-primary-link:focus-visible {
   outline: 2px solid rgba(159, 195, 255, 0.72);
   outline-offset: 4px;
   border-radius: 0.15rem;

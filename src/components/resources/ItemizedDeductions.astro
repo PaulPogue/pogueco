@@ -1,0 +1,442 @@
+---
+import { taxFacts2026 as facts } from "../../data/taxFacts2026.js";
+import "./current-tax-facts.css";
+import "./itemized-deductions.css";
+
+const dollars = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
+
+const money = (value) => dollars.format(value);
+const percent = (value) => `${value}%`;
+---
+
+<section class="tax-facts itemized-guide">
+  <header class="tax-facts__hero">
+    <div>
+      <p class="tax-facts__eyebrow">Individual tax guide</p>
+      <h1>{facts.year} Itemized Deductions</h1>
+      <p class="tax-facts__intro">
+        A practical guide to the major federal itemized deductions, including
+        the floors, limits, phaseouts, and special rules that determine whether
+        an expense actually produces a deduction.
+      </p>
+    </div>
+
+    <div class="tax-facts__meta">
+      <span>Tax year {facts.year}</span>
+      <span>Updated {facts.updated}</span>
+    </div>
+  </header>
+
+  <section class="itemized-guide__perspective">
+    <p class="tax-facts__section-label">Perspective</p>
+
+    <h2>Most taxpayers don't itemize</h2>
+
+    <p>
+      In recent years, roughly 9 out of 10 individual federal income tax returns
+      have claimed the standard deduction rather than itemizing. Itemizing
+      became much less common after the standard deduction was substantially
+      increased beginning in 2018.
+    </p>
+
+    <p>
+      Whether itemizing is beneficial depends on your filing status and the
+      amount of your allowable deductions. Changes to deduction rules for 2026,
+      including the higher SALT limitation, may make itemizing beneficial for
+      some taxpayers who previously claimed the standard deduction.
+    </p>
+
+    <a
+      href="https://www.irs.gov/statistics/soi-tax-stats-individual-income-tax-returns-complete-report-publication-1304"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      IRS individual income tax statistics ↗
+    </a>
+  </section>
+
+  <section class="itemized-guide__intro">
+    <div class="itemized-guide__intro-heading">
+      <div>
+        <p class="tax-facts__section-label">The basic comparison</p>
+        <h2>Should I itemize?</h2>
+      </div>
+
+      <a
+        href="https://www.irs.gov/taxtopics/tc501"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        IRS: Should I itemize? ↗
+      </a>
+    </div>
+
+    <p>
+      Generally, itemizing is beneficial when your allowable itemized deductions
+      exceed the standard deduction available for your filing status. For 2026,
+      the basic standard deduction amounts are:
+    </p>
+
+    <div class="itemized-guide__standard-grid">
+      <div>
+        <span>Single</span>
+        <strong>$16,100</strong>
+      </div>
+
+      <div>
+        <span>Married filing jointly / surviving spouse</span>
+        <strong>$32,200</strong>
+      </div>
+
+      <div>
+        <span>Head of household</span>
+        <strong>$24,150</strong>
+      </div>
+
+      <div>
+        <span>Married filing separately</span>
+        <strong>$16,100</strong>
+      </div>
+    </div>
+
+    <div class="itemized-guide__comparison-note">
+      <strong
+        >Could your itemized deductions exceed your standard deduction?</strong
+      >
+      <p>
+        The sections below explain the major deductions that count toward that
+        comparison and the limits, floors, and phaseouts that may apply.
+      </p>
+    </div>
+
+    <p class="itemized-guide__small-note">
+      Your available standard deduction may be higher if you are age 65 or older
+      or blind. Other special rules can also affect the deduction available to
+      you.
+    </p>
+  </section>
+
+  <div class="itemized-guide__grid">
+    <section class="itemized-guide__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Schedule A</p>
+          <h2>{facts.itemizedDeductions.medical.label}</h2>
+        </div>
+        <a
+          href={facts.sources.medicalDeductions.url}
+          target="_blank"
+          rel="noopener noreferrer">IRS source ↗</a
+        >
+      </div>
+      <div class="tax-facts__list">
+        <div>
+          <span>AGI floor</span><strong
+            >{percent(facts.itemizedDeductions.medical.floorPercentAGI)}</strong
+          >
+        </div>
+      </div>
+      <p>{facts.itemizedDeductions.medical.description}</p>
+      <p>{facts.itemizedDeductions.medical.examples}</p>
+    </section>
+
+    <section class="itemized-guide__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Schedule A</p>
+          <h2>{facts.itemizedDeductions.salt.label}</h2>
+        </div>
+        <a
+          href={facts.sources.saltDeductions.url}
+          target="_blank"
+          rel="noopener noreferrer">IRS source ↗</a
+        >
+      </div>
+      <div class="tax-facts__list">
+        <div>
+          <span>2026 cap</span><strong
+            >{money(facts.itemizedDeductions.salt.limit)}</strong
+          >
+        </div>
+        <div>
+          <span>2026 cap — MFS</span><strong
+            >{money(facts.itemizedDeductions.salt.mfsLimit)}</strong
+          >
+        </div>
+        <div>
+          <span>Phaseout rate</span><strong
+            >{
+              percent(facts.itemizedDeductions.salt.phaseoutRatePercent)
+            }</strong
+          >
+        </div>
+        <div>
+          <span>Phaseout range — most filing statuses</span><strong
+            >{money(facts.itemizedDeductions.salt.phaseoutStarts.single)} – {
+              money(facts.itemizedDeductions.salt.phaseoutEnds.single)
+            } MAGI</strong
+          >
+        </div>
+        <div>
+          <span>Phaseout range — MFS</span><strong
+            >{
+              money(
+                facts.itemizedDeductions.salt.phaseoutStarts.marriedSeparate,
+              )
+            } – {
+              money(facts.itemizedDeductions.salt.phaseoutEnds.marriedSeparate)
+            } MAGI</strong
+          >
+        </div>
+        <div>
+          <span>SALT cap after full phaseout</span><strong
+            >{money(facts.itemizedDeductions.salt.minimumLimit)} / {
+              money(facts.itemizedDeductions.salt.mfsMinimumLimit)
+            } MFS</strong
+          >
+        </div>
+      </div>
+      <p>{facts.itemizedDeductions.salt.description}</p>
+    </section>
+
+    <section class="itemized-guide__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Schedule A</p>
+          <h2>{facts.itemizedDeductions.mortgageInterest.label}</h2>
+        </div>
+        <a
+          href={facts.sources.mortgageInterest.url}
+          target="_blank"
+          rel="noopener noreferrer">IRS source ↗</a
+        >
+      </div>
+      <div class="tax-facts__list">
+        <div>
+          <span>Post-Dec. 15, 2017 acquisition debt limit</span><strong
+            >{
+              money(
+                facts.itemizedDeductions.mortgageInterest.acquisitionDebtLimit,
+              )
+            }</strong
+          >
+        </div>
+        <div>
+          <span>MFS limit</span><strong
+            >{
+              money(
+                facts.itemizedDeductions.mortgageInterest
+                  .mfsAcquisitionDebtLimit,
+              )
+            }</strong
+          >
+        </div>
+        <div>
+          <span>Older qualifying acquisition debt</span><strong
+            >{
+              money(
+                facts.itemizedDeductions.mortgageInterest
+                  .grandfatheredDebtLimit,
+              )
+            }</strong
+          >
+        </div>
+      </div>
+      <p>{facts.itemizedDeductions.mortgageInterest.description}</p>
+      <p>{facts.itemizedDeductions.mortgageInterest.useOfProceeds}</p>
+    </section>
+
+    <section class="itemized-guide__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Schedule A</p>
+          <h2>{facts.itemizedDeductions.charitable.label}</h2>
+        </div>
+        <a
+          href={facts.sources.charitableDeductions.url}
+          target="_blank"
+          rel="noopener noreferrer">IRS source ↗</a
+        >
+      </div>
+      <div class="tax-facts__list">
+        <div>
+          <span>2026 itemizer AGI floor</span><strong
+            >{
+              percent(facts.itemizedDeductions.charitable.floorPercentAGI)
+            }</strong
+          >
+        </div>
+        <div>
+          <span>Cash gifts to many public charities</span><strong
+            >{
+              percent(
+                facts.itemizedDeductions.charitable
+                  .publicCharityCashLimitPercentAGI,
+              )
+            } of AGI</strong
+          >
+        </div>
+        <div>
+          <span>Non-itemizer cash deduction</span><strong
+            >{
+              money(facts.itemizedDeductions.charitable.nonItemizerLimit)
+            }</strong
+          >
+        </div>
+        <div>
+          <span>Non-itemizer cash deduction — MFJ</span><strong
+            >{
+              money(facts.itemizedDeductions.charitable.nonItemizerJointLimit)
+            }</strong
+          >
+        </div>
+      </div>
+      <p>{facts.itemizedDeductions.charitable.description}</p>
+      <p>{facts.itemizedDeductions.charitable.substantiation}</p>
+      <p class="itemized-guide__note">
+        {facts.itemizedDeductions.charitable.nonItemizerNote}
+      </p>
+    </section>
+
+    <section class="itemized-guide__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Schedule A</p>
+          <h2>{facts.itemizedDeductions.gambling.label}</h2>
+        </div>
+        <a
+          href={facts.sources.gamblingDeductions.url}
+          target="_blank"
+          rel="noopener noreferrer">IRS source ↗</a
+        >
+      </div>
+      <div class="tax-facts__list">
+        <div>
+          <span>Deduction limit</span><strong
+            >{facts.itemizedDeductions.gambling.limitText}</strong
+          >
+        </div>
+      </div>
+      <p>{facts.itemizedDeductions.gambling.description}</p>
+      <p>{facts.itemizedDeductions.gambling.reporting}</p>
+    </section>
+
+    <section class="itemized-guide__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Schedule A</p>
+          <h2>{facts.itemizedDeductions.casualty.label}</h2>
+        </div>
+        <a
+          href={facts.sources.casualtyDeductions.url}
+          target="_blank"
+          rel="noopener noreferrer">IRS source ↗</a
+        >
+      </div>
+      <div class="tax-facts__list">
+        <div>
+          <span>General per-event reduction</span><strong
+            >{money(facts.itemizedDeductions.casualty.eventReduction)}</strong
+          >
+        </div>
+        <div>
+          <span>General AGI floor</span><strong
+            >{
+              percent(facts.itemizedDeductions.casualty.agiFloorPercent)
+            }</strong
+          >
+        </div>
+      </div>
+      <p>{facts.itemizedDeductions.casualty.description}</p>
+      <p>{facts.itemizedDeductions.casualty.standardRule}</p>
+    </section>
+
+    <section class="itemized-guide__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">High income</p>
+          <h2>{facts.itemizedDeductions.highIncomeLimit.label}</h2>
+        </div>
+        <a
+          href={facts.sources.charitableDeductions.url}
+          target="_blank"
+          rel="noopener noreferrer">IRS source ↗</a
+        >
+      </div>
+      <div class="tax-facts__list">
+        <div>
+          <span>Reduction percentage</span><strong
+            >{
+              percent(facts.itemizedDeductions.highIncomeLimit.reductionPercent)
+            }</strong
+          >
+        </div>
+        <div>
+          <span>Single / HOH threshold</span><strong
+            >{
+              money(facts.itemizedDeductions.highIncomeLimit.thresholds.single)
+            }</strong
+          >
+        </div>
+        <div>
+          <span>MFJ / surviving spouse threshold</span><strong
+            >{
+              money(
+                facts.itemizedDeductions.highIncomeLimit.thresholds
+                  .marriedJoint,
+              )
+            }</strong
+          >
+        </div>
+        <div>
+          <span>MFS threshold</span><strong
+            >{
+              money(
+                facts.itemizedDeductions.highIncomeLimit.thresholds
+                  .marriedSeparate,
+              )
+            }</strong
+          >
+        </div>
+      </div>
+      <p>{facts.itemizedDeductions.highIncomeLimit.description}</p>
+    </section>
+
+    <section class="itemized-guide__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Common confusion</p>
+          <h2>{facts.itemizedDeductions.miscellaneous.label}</h2>
+        </div>
+        <a
+          href={facts.sources.miscellaneousDeductions.url}
+          target="_blank"
+          rel="noopener noreferrer">IRS source ↗</a
+        >
+      </div>
+      <p>{facts.itemizedDeductions.miscellaneous.description}</p>
+      <p>{facts.itemizedDeductions.miscellaneous.examples}</p>
+    </section>
+  </div>
+
+  <footer class="tax-facts__footer itemized-guide__footer">
+    <div>
+      <h2>Sources & disclaimer</h2>
+      <p>
+        Each section links to primary IRS guidance. Rules can differ based on
+        the nature of the expense, filing status, timing, documentation, and
+        other facts.
+      </p>
+    </div>
+    <p class="tax-facts__disclaimer">
+      <strong>Disclaimer:</strong> This information is provided for general informational
+      purposes only and is not intended as tax, legal, or financial advice. Consult
+      current IRS guidance or a qualified tax professional before making decisions
+      based on this information.
+    </p>
+  </footer>
+</section>

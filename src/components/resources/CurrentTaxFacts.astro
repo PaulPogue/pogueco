@@ -1,0 +1,432 @@
+---
+import { taxFacts2026 as facts } from "../../data/taxFacts2026.js";
+import "./current-tax-facts.css";
+
+const dollars = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
+
+const number = new Intl.NumberFormat("en-US");
+
+const money = (value) => dollars.format(value);
+
+const bracketLabel = (row) => {
+  if (row.over === 0) return `${money(row.through)} or less`;
+  if (row.through === null) return `Over ${money(row.over)}`;
+  return `${money(row.over + 1)} – ${money(row.through)}`;
+};
+
+const percentage = (value) => `${value}%`;
+---
+
+<section class="tax-facts">
+  <header class="tax-facts__hero">
+    <div>
+      <p class="tax-facts__eyebrow">Tax reference</p>
+      <h1>{facts.year} Federal Tax Facts</h1>
+      <p class="tax-facts__intro">
+        A quick reference to frequently used federal tax rates, limits,
+        deductions, retirement amounts, payroll thresholds, and mileage rates.
+      </p>
+    </div>
+
+    <div class="tax-facts__meta">
+      <span>Tax year {facts.year}</span>
+      <span>Updated {facts.updated}</span>
+    </div>
+  </header>
+
+  <div class="tax-facts__notice">
+    <strong>Current information.</strong>
+    These figures apply to tax year {facts.year} unless a different period is shown.
+    Midyear changes are displayed separately where applicable.
+  </div>
+
+  <div class="tax-facts__grid">
+    <section class="tax-facts__card tax-facts__card--wide">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Individuals</p>
+          <h2>Standard Deduction</h2>
+        </div>
+        <a
+          href={facts.sources.inflationAdjustments.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          IRS source ↗
+        </a>
+      </div>
+
+      <div class="tax-facts__rows tax-facts__rows--two">
+        {
+          facts.standardDeduction.map((item) => (
+            <div class="tax-facts__stat">
+              <span>{item.label}</span>
+              <strong>{money(item.amount)}</strong>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="tax-facts__card tax-facts__card--wide">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Individuals</p>
+          <h2>Itemized Deductions</h2>
+        </div>
+        <a href="/resources/itemized-deductions">
+          Detailed guide →
+        </a>
+      </div>
+
+      <p class="tax-facts__footnote" style="margin-top:0;">
+        Medical expenses, state and local taxes, mortgage interest, charitable
+        contributions, gambling losses, casualty losses, and high-income limitations
+        each have separate rules, floors, caps, and documentation requirements.
+      </p>
+    </section>
+
+    <section class="tax-facts__card tax-facts__card--wide">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Individuals</p>
+          <h2>Federal Income Tax Rates</h2>
+        </div>
+        <a
+          href={facts.sources.inflationAdjustments.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          IRS source ↗
+        </a>
+      </div>
+
+      <div class="tax-facts__brackets">
+        <div>
+          <h3>Single</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Taxable income</th>
+                <th>Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                facts.ordinaryRates.single.map((row) => (
+                  <tr>
+                    <td>{bracketLabel(row)}</td>
+                    <td>{row.rate}%</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <h3>Married Filing Jointly</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Taxable income</th>
+                <th>Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                facts.ordinaryRates.marriedJoint.map((row) => (
+                  <tr>
+                    <td>{bracketLabel(row)}</td>
+                    <td>{row.rate}%</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="tax-facts__footnote">
+        Marginal rates apply only to taxable income within each bracket.
+      </p>
+    </section>
+
+    <section class="tax-facts__card tax-facts__card--wide">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Investments</p>
+          <h2>Long-Term Capital Gains & Qualified Dividends</h2>
+        </div>
+        <a
+          href={facts.sources.capitalGains.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          IRS source ↗
+        </a>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Filing status</th>
+            <th>0% rate through</th>
+            <th>15% rate through</th>
+            <th>Above that</th>
+          </tr>
+        </thead>
+        <tbody>
+          {facts.capitalGains.map((row) => (
+            <tr>
+              <td>{row.filingStatus}</td>
+              <td>{money(row.zeroRateMax)}</td>
+              <td>{money(row.fifteenRateMax)}</td>
+              <td>20%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <p class="tax-facts__footnote">
+        These are taxable-income thresholds, not simply the amount of capital gain.
+        Special maximum rates can apply to collectibles and unrecaptured section 1250 gain.
+      </p>
+    </section>
+
+    <section class="tax-facts__card tax-facts__card--wide">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Investments</p>
+          <h2>Net Investment Income Tax (NIIT)</h2>
+        </div>
+        <a
+          href={facts.sources.niit.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          IRS source ↗
+        </a>
+      </div>
+
+      <div class="tax-facts__rows tax-facts__rows--two">
+        <div class="tax-facts__stat">
+          <span>NIIT rate</span>
+          <strong>{percentage(facts.niit.rate)}</strong>
+        </div>
+        {facts.niit.thresholds.map((item) => (
+          <div class="tax-facts__stat">
+            <span>{item.label}</span>
+            <strong>{money(item.amount)}</strong>
+          </div>
+        ))}
+      </div>
+
+      <p class="tax-facts__footnote">{facts.niit.description}</p>
+      <p class="tax-facts__footnote">{facts.niit.incomeExamples}</p>
+    </section>
+
+    <section class="tax-facts__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Retirement</p>
+          <h2>Contribution Limits</h2>
+        </div>
+        <a
+          href={facts.sources.retirement.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          IRS source ↗
+        </a>
+      </div>
+
+      <div class="tax-facts__list">
+        {
+          facts.retirement.map((item) => (
+            <div>
+              <span>{item.label}</span>
+              <strong>{money(item.amount)}</strong>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="tax-facts__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Payroll</p>
+          <h2>Social Security & Medicare</h2>
+        </div>
+        <a
+          href={facts.sources.socialSecurity.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          SSA source ↗
+        </a>
+      </div>
+
+      <div class="tax-facts__list">
+        {
+          facts.payroll.map((item) => (
+            <div>
+              <span>{item.label}</span>
+              <strong>
+                {item.amount !== undefined
+                  ? money(item.amount)
+                  : item.percent !== undefined
+                    ? `${item.percent}%`
+                    : item.text}
+              </strong>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="tax-facts__footnote">
+        Employers begin withholding the 0.9% Additional Medicare Tax when an
+        employee's Medicare wages exceed $200,000 during the calendar year,
+        regardless of filing status. There is no employer match on the
+        additional tax.
+      </p>
+    </section>
+
+    <section class="tax-facts__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Health</p>
+          <h2>HSA & HDHP Limits</h2>
+        </div>
+        <a
+          href={facts.sources.hsa.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          IRS source ↗
+        </a>
+      </div>
+
+      <div class="tax-facts__list">
+        {
+          facts.hsa.map((item) => (
+            <div>
+              <span>{item.label}</span>
+              <strong>{money(item.amount)}</strong>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="tax-facts__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Vehicle</p>
+          <h2>Standard Mileage Rates</h2>
+        </div>
+        <a
+          href={facts.sources.mileage.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          IRS source ↗
+        </a>
+      </div>
+
+      <div class="tax-facts__mileage">
+        {
+          facts.mileage.map((group) => (
+            <div class="tax-facts__mileage-group">
+              <h3>{group.label}</h3>
+              {group.periods.map((item) => (
+                <div>
+                  <span>{item.period}</span>
+                  <strong>{item.cents}¢ / mile</strong>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="tax-facts__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Estate & gifts</p>
+          <h2>Exclusions</h2>
+        </div>
+        <a
+          href={facts.sources.estateGift.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          IRS source ↗
+        </a>
+      </div>
+
+      <div class="tax-facts__list">
+        {
+          facts.estateGift.map((item) => (
+            <div>
+              <span>{item.label}</span>
+              <strong>{money(item.amount)}</strong>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="tax-facts__card">
+      <div class="tax-facts__card-heading">
+        <div>
+          <p class="tax-facts__section-label">Other limits</p>
+          <h2>Frequently Used Amounts</h2>
+        </div>
+        <a
+          href={facts.sources.inflationAdjustments.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          IRS source ↗
+        </a>
+      </div>
+
+      <div class="tax-facts__list">
+        {
+          facts.other.map((item) => (
+            <div>
+              <span>{item.label}</span>
+              <strong>{money(item.amount)}</strong>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+
+  <footer class="tax-facts__footer">
+    <div>
+      <h2>Sources & disclaimer</h2>
+      <p>
+        Source links throughout this page lead to primary guidance from the
+        Internal Revenue Service or Social Security Administration.
+      </p>
+    </div>
+
+    <p class="tax-facts__disclaimer">
+      <strong>Disclaimer:</strong> This information is provided for general informational
+      purposes only and is not intended as tax, legal, or financial advice. Tax laws,
+      limits, rates, and other amounts may change, and individual circumstances vary.
+      While we strive to keep this information current, consult the applicable government
+      source or a qualified tax professional before making decisions based on this
+      information.
+    </p>
+  </footer>
+</section>
