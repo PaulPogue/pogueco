@@ -127,6 +127,10 @@ body {
    Menu page blur
 ============================ */
 
+/* ============================
+   Menu page blur
+============================ */
+
 body::after {
   content: "";
   position: fixed;
@@ -135,9 +139,6 @@ body::after {
   z-index: 900;
 
   background: rgba(1, 9, 74, 0.08);
-
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
 
   opacity: 0;
   visibility: hidden;
@@ -157,13 +158,15 @@ body.page-is-blurred::after {
     visibility 0s linear 0s;
 }
 
-body.page-is-blurred::after {
-  opacity: 1;
-  visibility: visible;
+/* Blur the page itself, not the header/menu */
+main,
+footer {
+  transition: filter 320ms ease;
+}
 
-  transition:
-    opacity 320ms ease,
-    visibility 0s linear 0s;
+body.page-is-blurred main,
+body.page-is-blurred footer {
+  filter: blur(7px);
 }
 
 /* ============================
