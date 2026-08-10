@@ -134,7 +134,7 @@ body::after {
 
   z-index: 900;
 
-  background: rgba(1, 9, 74, 0.12);
+  background: rgba(1, 9, 74, 0.08);
 
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
