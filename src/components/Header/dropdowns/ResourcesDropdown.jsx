@@ -31,7 +31,7 @@ const resourceGroups = [
       },
 
       {
-        label: "Amortization Schedule Builder",
+        label: "Amortization Calculator",
         href: "/resources/amortization",
         external: false,
       },

@@ -610,7 +610,7 @@ export default function AmortizationCalculator() {
       <div className="amortization-tool-header">
         <p className="amortization-tool-eyebrow">Calculator</p>
 
-        <h1>Amortization Schedule Builder</h1>
+        <h1>Amortization Calculator</h1>
 
         <p>
           Enter three of the four core loan values and leave one blank. The
