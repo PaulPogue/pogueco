@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import MainMenu from "./MainMenu";
 import LogoFull from "../../assets/logos/logoWhiteWOTagLine.png";
+import LogoWhiteHorizontal from "../../assets/logos/logoWhiteHorizontal.png";
 import LogoMark from "../../assets/images/CenterLogoBlue.svg";
 import ClientPortalButton from "../buttons/ClientPortalButton.astro";
 import MobileDrawer from "../../components/nav/MobileDrawer";
@@ -30,6 +31,12 @@ const { variant = "compact" } = Astro.props;
           src={LogoFull}
           alt="Pogue & Company CPAs PLLC logo"
           height={110}
+          class="logo-desktop"
+        />
+        <Image
+          src={LogoWhiteHorizontal}
+          alt="Pogue & Company"
+          class="logo-mobile"
         />
       </a>
 
@@ -49,10 +56,9 @@ const { variant = "compact" } = Astro.props;
 
       <ClientPortalButton />
     </div>
-  </div>
-
-  <div class="site-header-mobile">
-    <MobileDrawer client:load />
+    <div class="site-header-mobile">
+      <MobileDrawer client:load />
+    </div>
   </div>
 </header>
 

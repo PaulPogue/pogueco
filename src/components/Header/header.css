@@ -58,12 +58,6 @@
   flex-shrink: 0;
 }
 
-.site-header-logo-full {
-  display: block;
-  width: auto;
-  height: 52px;
-}
-
 /* Navigation */
 .site-header-primary {
   display: none;
@@ -114,6 +108,17 @@
   transform: translateY(-1px);
 }
 
+/* Default/mobile */
+.logo-desktop {
+  display: none;
+}
+
+.logo-mobile {
+  display: block;
+  width: 190px;
+  height: auto;
+}
+
 @media (min-width: 768px) {
   .site-header-primary,
   .site-header-actions {
@@ -123,14 +128,37 @@
   .site-header-mobile {
     display: none;
   }
-}
 
-@media (min-width: 768px) {
-  .site-header-primary {
-    display: flex;
+  .logo-desktop {
+    display: block;
+    height: 52px;
+    width: auto;
   }
 
-  .site-header-mobile {
+  .logo-mobile {
     display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-header-inner {
+    position: relative;
+    height: 76px;
+    width: 100%;
+  }
+
+  /* Center horizontal logo */
+  .site-header-left {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  /* MobileDrawer remains in its normal layout */
+  .site-header-mobile {
+    display: flex;
+    align-items: center;
   }
 }
